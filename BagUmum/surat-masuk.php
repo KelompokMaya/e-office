@@ -81,7 +81,7 @@
                   <div class="col-xs-12 form-group">
                         <label class="col-sm-3 control-label" style="text-align:right;">Nomor Surat Masuk</label>
                          <div class="col-sm-7 control-label" style="text-align:left;">
-                           <input id='Nomor_surat' class='form-control' name='Nomor_surat' type='text' />
+                           <input id='Nomor_surat' class='form-control' name='Nomor_surat' type='text' required />
                          </div>
                   </div>
                   <div class="col-xs-12 form-group">

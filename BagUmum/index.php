@@ -28,11 +28,7 @@
                     <i class="fa fa-upload"></i> <span>Surat Keluar</span>
                   </a>
                 </li>    
-                <li class=" treeview">
-                  <a href="laporan-surat.php">
-                    <i class="fa fa-paper-plane"></i> <span>Laporan Surat</span>
-                  </a>
-                </li> 
+               
               </ul>
     </section>
     <!-- /.sidebar -->

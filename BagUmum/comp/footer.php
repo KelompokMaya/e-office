@@ -24,7 +24,9 @@
 <script src="../template/plugins/morris/morris.min.js"></script>
 <!-- Sparkline -->
 <script src="../template/plugins/sparkline/jquery.sparkline.min.js"></script>
-
+<!-- CK Editor -->
+<script src="../template/plugins/ckeditor/ckeditor.js"></script>
+<script src="../template/plugins/ckeditor/config.js"></script>
 
 <!-- Bootstrap WYSIHTML5 -->
 <script src="../template/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>

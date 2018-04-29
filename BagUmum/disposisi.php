@@ -55,13 +55,13 @@
   // Proses tampil form edit data 
   if(isset($_GET["edit"]))
     {
-      include("modal/editSurat.php");  
+      include("modal/editDisposisi.php");  
     }    
     ?>
      
 
  <!-- tabel data pengguna -->
-        <div id="tabelSurat" class=" col-xs-12" >
+        <div id="tabelDisposisi" class=" col-xs-12" >
           <div class="box box-success">
                <div class="box-header">
                 </div>    
@@ -107,7 +107,7 @@
                                   <td ><?php echo $row['Disposisi'];?></td>
                                   <td style="text-align: center;">
                                   <div class="btn-group">
-                                    <a href="surat-masuk.php?edit&&id=<?php echo $row['Nomor_surat_masuk'];?>" class="btn btn-sm btn-info btn-flat" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil"></i></a>
+                                    <a href="disposisi.php?edit&&id=<?php echo $row['Nomor_surat_masuk'];?>" class="btn btn-sm btn-info btn-flat" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil"></i></a>
                                     <a href="disposisi.php?hapus&&id=<?php echo $row['Nomor_surat_masuk'];?>"  class="btn btn-sm btn-danger btn-flat" data-toggle="tooltip" title="Delete" ><i class="fa fa-trash"></i></a>
                                   </div>
                                 </td>
