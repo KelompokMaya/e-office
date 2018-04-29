@@ -18,36 +18,49 @@
             $file_Surat = date('YmdH_').$File;
             $path = "../File/".$file_Surat;
           
-           
-            if(move_uploaded_file($tmp, $path)){
-                    $insert = mysqli_query($koneksi, "INSERT INTO tb_suratmasuk(Nomor_surat_masuk,Asal_surat,Tanggal_input,Tanggal_surat,Sifat_surat,Perihal,File_surat) VALUES('$Nomor_surat_masuk','$Asal_surat','$Tanggal_terima','$Tanggal_surat','$Sifat_surat','$Perihal','$file_Surat')") or die(mysqli_error($koneksi));
-                      if($insert)
-                        { 
-                           echo '<script >
-                                  $("#ModalSukses").modal();
-                                    setTimeout(function () {
-                                    window.location.href = "surat-masuk.php";  }, 100);
-                                
-                                </script>';
+            $cek = mysqli_query($koneksi, "SELECT * FROM tb_suratmasuk WHERE Nomor_surat_masuk='$Nomor_surat_masuk'")or die (mysqli_error($koneksi));
 
-                        }
-                      else
-                        {
-                          echo '<script >
+          if(mysqli_num_rows($cek) == 0)
+            {
+              if(move_uploaded_file($tmp, $path)){
+                      $insert = mysqli_query($koneksi, "INSERT INTO tb_suratmasuk(Nomor_surat_masuk,Asal_surat,Tanggal_input,Tanggal_surat,Sifat_surat,Perihal,File_surat) VALUES('$Nomor_surat_masuk','$Asal_surat','$Tanggal_terima','$Tanggal_surat','$Sifat_surat','$Perihal','$file_Surat')") or die(mysqli_error($koneksi));
+                        if($insert)
+                          { 
+                             echo '<script >
+                                    $("#ModalSukses").modal();
+                                      setTimeout(function () {
+                                      window.location.href = "surat-masuk.php";  }, 100);
+                                  
+                                  </script>';
+
+                          }
+                        else
+                          {
+                            echo '<script >
+                                    $("#ModalGagal").modal();
+                                      setTimeout(function () {
+                                      window.location.href = "surat-masuk.php";  }, 100);
+                                  
+                                  </script>';
+                          } 
+              }else{
+
+                  echo '<script >
                                   $("#ModalGagal").modal();
                                     setTimeout(function () {
                                     window.location.href = "surat-masuk.php";  }, 100);
                                 
                                 </script>';
-                        } 
-            }else{
-
-                echo '<script >
-                                $("#ModalGagal").modal();
-                                  setTimeout(function () {
-                                  window.location.href = "surat-masuk.php";  }, 100);
-                              
-                              </script>';
+              }
+            }
+            else
+            {
+              echo '<script >
+                            $("#ModalDuplikat").modal();
+                              setTimeout(function () {
+                              window.location.href = "surat-keluar.php";  }, 100);
+                          
+                          </script>';
             }
 
            

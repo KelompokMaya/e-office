@@ -57,6 +57,10 @@
  if(isset($_GET["tambahSuratKeluar"]))
     { 
       include("modal/tambahSuratKeluar.php");  
+    } 
+ if(isset($_GET["edit"]))
+    { 
+      include("modal/editSuratKeluar.php");  
     }  
     
     ?>
@@ -84,9 +88,9 @@
                   <th style="width: 10%">Asal Surat</th>
                   <th style="width: 12%">Dasar Surat</th>
                   <th style="width: 10%" >Jenis Surat</th>
-                  <th  style="width: 10%">Sifat Surat</th>
+                  <th  style="width: 8%">Sifat Surat</th>
                   <th  style="width: 10%">Perihal</th>
-                  <th  style="text-align: center; width: 12%">Aksi</th>
+                  <th  style="text-align: center; width: 14%">Aksi</th>
                 </tr>
                 </thead>
                 <tbody >
@@ -94,7 +98,7 @@
               <!-- Proses mencari data ke database -->
               <?php
                                 
-                $sql = mysqli_query($koneksi, "SELECT * FROM tb_suratkeluar ");
+                $sql = mysqli_query($koneksi, "SELECT * FROM tb_suratkeluar a,tb_jenis_surat b WHERE a.Id_jenis_surat=b.Id_jenis_surat ");
                  $no = 1;
                   while($row = mysqli_fetch_assoc($sql)){
 
@@ -106,7 +110,7 @@
                                   <td ><?php echo $row['Tanggal_surat'];?></td>
                                   <td ><?php echo $row['Asal_surat'];?></td>
                                   <td ><?php echo $row['Dasar_surat'];?></td>
-                                  <td ><?php echo $row['Id_jenis_surat'];?></td>
+                                  <td ><?php echo $row['Nama_jenis_surat'];?></td>
                                   <td ><?php echo $row['Sifat_surat'];?></td>
                                   <td ><?php echo $row['Perihal'];?></td>
                                   <td style="text-align: center;">
@@ -115,10 +119,10 @@
                                     <a href="../Print/printSuratKeluar.php?id=<?php echo $row['Nomor_surat_keluar'];?>" class="btn btn-sm btn-primary btn-flat" data-toggle="tooltip" title="Cetak Surat"  ><i class="fa fa-print"></i></a>
                                     <?php } elseif ($row['Id_jenis_surat']=='sk2') { ?>
                                     <a href="../Print/printSuratPerintah.php?id=<?php echo $row['Nomor_surat_keluar'];?>" class="btn btn-sm btn-primary btn-flat" data-toggle="tooltip" title="Cetak Surat"  ><i class="fa fa-print"></i></a>
-                                     <?php } else { ?>
-                                     <a href="../Print/printSuratKeluar.php?id=<?php echo $row['Nomor_surat_keluar'];?>" class="btn btn-sm btn-primary btn-flat" data-toggle="tooltip" title="Cetak Surat"  ><i class="fa fa-print"></i></a>
+                                     <?php } elseif($row['Id_jenis_surat']=='sk3') { ?>
+                                     <a href="../Print/printNotaDinas.php?id=<?php echo $row['Nomor_surat_keluar'];?>" class="btn btn-sm btn-primary btn-flat" data-toggle="tooltip" title="Cetak Surat"  ><i class="fa fa-print"></i></a>
                                      <?php } ?>
-                                    <a href="surat-masuk.php?edit&&id=<?php echo $row['Nomor_surat_masuk'];?>" class="btn btn-sm btn-info btn-flat" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil"></i></a>
+                                    <a href="surat-keluar.php?edit=<?php echo $row['Id_jenis_surat'];?>&&id=<?php echo $row['Nomor_surat_keluar'];?>" class="btn btn-sm btn-info btn-flat" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil"></i></a>
                                     <a href="surat-keluar.php?hapus&&id=<?php echo $row['Nomor_surat_keluar'];?>"  class="btn btn-sm btn-danger btn-flat" data-toggle="tooltip" title="Delete" ><i class="fa fa-trash"></i></a>
                                   </div>
                                 </td>

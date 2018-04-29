@@ -1,6 +1,17 @@
      
-  <!-- Proses tambah data ke data base -->
+
   <?php
+  // Proses tampil form tambah data 
+  if(isset($_GET["tambahSuratKeluar"]))
+    {
+            echo '<script >
+            $(window).load(function() {  
+              $("#tabelSuratKeluar").css("display","none");     
+             })
+            </script>';
+           
+    }
+  //Proses tambah data ke data base 
   if(isset($_POST['addSuratKeluar']))
           {
             $Nomor_surat_keluar     = $_POST['Nomor_surat'];
@@ -21,9 +32,16 @@
               
             }
             if ($Jenis_surat=='Surat Perintah Tugas') {
-              $Dasar_surat      =$_POST['Dasar_surat'];;
+              $Dasar_surat      =$_POST['Dasar_surat'];
               $Ditugaskan_kepada= $_POST['Ditugaskan_kepada'];
               $Id_jenis_surat   = 'sk2';
+              
+            }
+            if ($Jenis_surat=='Nota Dinas') {
+              $Tujuan_surat     =$_POST['Tujuan_surat'];
+              $Dasar_surat      ='-';
+              $Ditugaskan_kepada= '-';
+              $Id_jenis_surat   = 'sk3';
               
             }
              
@@ -78,6 +96,7 @@
            
     }
 
+
    // Proses hapus data      
   if(isset($_POST['hapus']))
     {
@@ -104,7 +123,7 @@
     }
 
   // Proses tampil form edit data 
-  if(isset($_GET["tambahSuratKeluar"]))
+  if(isset($_GET["edit"]))
     {
             echo '<script >
             $(window).load(function() {  
@@ -115,63 +134,44 @@
     }
 
   // Proses edit data     
-  if(isset($_POST['edit']))
+  if(isset($_POST['editSuratKeluar']))
           { 
-            $currSM                = $_POST['currSM'];
-            $Nomor_surat_masuk     = $_POST['edit-Nomor_surat'];
-            $Asal_surat            = $_POST['edit-Asal_surat'];
-            $Tanggal_terima        = $_POST['edit-Tanggal_terima'];
-            $Tanggal_surat         = $_POST['edit-Tanggal_surat'];
-            $Sifat_surat           = $_POST['edit-Sifat_surat'];
-            $Perihal               = $_POST['edit-Perihal'];
+            $currNS                 = $_POST['currNS'];
+            $Nomor_surat_keluar     = $_POST['Nomor_surat_keluar'];
+            $Tanggal_surat          = $_POST['Tanggal_surat'];
+            $Asal_surat             = $_POST['Asal_surat'];
+            $Sifat_surat            = $_POST['Sifat_surat'];
+            $Perihal                = $_POST['Perihal'];
+            $Isi_surat              = $_POST['isi_surat'];
+            $Jenis_surat            = $_POST['Jenis_surat'];
 
-            if (!empty($_FILES['edit-file_Surat']['name'])) {
-                $File       = $_FILES['edit-file_Surat']['name'];
-                $tmp        = $_FILES['edit-file_Surat']['tmp_name'];
-                $file_Surat = date('YmdH_').$File;
-                $path = "../File/".$file_Surat;
+            
 
+            if ($Jenis_surat=='sk1') {
+              $Tujuan_surat     =$_POST['Tujuan_surat'];
+              $Dasar_surat      ='-';
+              $Ditugaskan_kepada= '-';
 
-                if(move_uploaded_file($tmp, $path)){
-                    $update = mysqli_query($koneksi, "UPDATE tb_suratmasuk set Nomor_surat_masuk='$Nomor_surat_masuk', Asal_surat='$Asal_surat', Tanggal_input='$Tanggal_terima',Tanggal_surat='$Tanggal_surat', Sifat_surat='$Sifat_surat', Perihal='$Perihal', File_surat='$file_Surat' WHERE Nomor_surat_masuk='$currSM'") or die(mysqli_error($koneksi));
-                      if($update)
-                        { 
-                           echo '<script >
-                                  $("#ModalSukses").modal();
-                                    setTimeout(function () {
-                                    window.location.href = "surat-masuk.php";  }, 100);
-                                
-                                </script>';
-
-                        }
-                      else
-                        {
-                          echo '<script >
-                                  $("#ModalGagal").modal();
-                                    setTimeout(function () {
-                                    window.location.href = "surat-masuk.php";  }, 100);
-                                
-                                </script>';
-                        } 
-                }else{
-
-                    echo '<script >
-                                    $("#ModalGagal").modal();
-                                      setTimeout(function () {
-                                      window.location.href = "surat-masuk.php";  }, 100);
-                                  
-                                  </script>';
-                }
               
-            } else {
-
-               $update = mysqli_query($koneksi, "UPDATE tb_suratmasuk set Nomor_surat_masuk='$Nomor_surat_masuk', Asal_surat='$Asal_surat', Tanggal_input='$Tanggal_terima',Tanggal_surat='$Tanggal_surat', Sifat_surat='$Sifat_surat', Perihal='$Perihal' WHERE Nomor_surat_masuk='$currSM'") or die(mysqli_error($koneksi));
+            }
+            if ($Jenis_surat=='sk2') {
+              $Dasar_surat      = $_POST['Dasar_surat'];
+              $Ditugaskan_kepada= $_POST['Ditugaskan_kepada'];
+              
+            }
+            if ($Jenis_surat=='sk3') {
+              $Tujuan_surat     =$_POST['Tujuan_surat'];
+              $Dasar_surat      ='-';
+              $Ditugaskan_kepada= '-';
+              
+            }
+             $update = mysqli_query($koneksi, "UPDATE tb_suratkeluar set Nomor_surat_keluar='$Nomor_surat_keluar',Tanggal_surat='$Tanggal_surat',Asal_surat='$Asal_surat',Sifat_surat='$Sifat_surat',Perihal='$Perihal',Isi_surat='$Isi_surat',Id_jenis_surat='$Jenis_surat',Tujuan_surat='$Tujuan_surat',Dasar_surat='$Dasar_surat',Ditugaskan_kepada='$Ditugaskan_kepada' WHERE Nomor_surat_keluar='$currNS'") or die(mysqli_error($koneksi));
                       if($update)
                         { 
                            echo '<script >
                                   $("#ModalSukses").modal();
                                     setTimeout(function () {
-                                    window.location.href = "surat-masuk.php";  }, 100);
+                                    window.location.href = "surat-keluar.php";  }, 100);
                                 
                                 </script>';
 
@@ -181,12 +181,10 @@
                           echo '<script >
                                   $("#ModalGagal").modal();
                                     setTimeout(function () {
-                                    window.location.href = "surat-masuk.php";  }, 100);
+                                    window.location.href = "surat-keluar.php";  }, 100);
                                 
                                 </script>';
                         } 
-
-            }
            
             
 

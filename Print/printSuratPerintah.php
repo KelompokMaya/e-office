@@ -67,7 +67,7 @@ $format1 = date('d F Y', strtotime($tanggal ));
     </tr>
      <tr>
         <td ></td>
-         <td style="font-size: 14px;"><div style="text-decoration: underline;">A.A GEDE YUNIARTHA PUTRA,SH,MH</div><br>Pembina Utama Madya<br>NIP. 19590622 198803 1 010</td>
+         <td style="font-size: 14px;"><div style="text-decoration: underline;">A.A GEDE YUNIARTHA PUTRA,SH,MH</div>Pembina Utama Madya<br>NIP. 19590622 198803 1 010</td>
     </tr>
     
 </table>
@@ -83,5 +83,5 @@ ob_end_clean();
 require_once('html2pdf/html2pdf.class.php');
 $pdf = new HTML2PDF('P','A4','en');
 $pdf->WriteHTML($html);
-$pdf->Output('Surat_perintah_tugas.pdf', 'D');
+$pdf->Output('Surat_perintah_tugas_'.$data['Nomor_surat_keluar'].'.pdf', 'D');
 ?>

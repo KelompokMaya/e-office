@@ -10,29 +10,40 @@
             $Hak_akses          = $_POST['Hak_akses'];
             $No_telepon         = $_POST['No_telepon'];
            
-            
-              $insert = mysqli_query($koneksi, "INSERT INTO tb_pengguna(NIP,Nama,Password,Alamat,Hak_akses,No_telepon) VALUES('$NIP','$Nama','$Password','$Alamat','$Hak_akses','$No_telepon')") or die(mysqli_error($koneksi));
-                if($insert)
-                { 
-                   echo '<script >
-                          $("#ModalSukses").modal();
-                            setTimeout(function () {
-                            window.location.href = "data-pengguna.php";  }, 100);
-                        
-                        </script>';
+             $cek = mysqli_query($koneksi, "SELECT * FROM tb_pengguna WHERE NIP='$NIP'")or die (mysqli_error($koneksi));
 
-                }
-              else
+              if(mysqli_num_rows($cek) == 0)
                 {
-                  echo '<script >
-                          $("#ModalGagal").modal();
-                            setTimeout(function () {
-                            window.location.href = "data-pengguna.php";  }, 100);
-                        
-                        </script>';
-                }
+                  $insert = mysqli_query($koneksi, "INSERT INTO tb_pengguna(NIP,Nama,Password,Alamat,Hak_akses,No_telepon) VALUES('$NIP','$Nama','$Password','$Alamat','$Hak_akses','$No_telepon')") or die(mysqli_error($koneksi));
+                    if($insert)
+                    { 
+                       echo '<script >
+                              $("#ModalSukses").modal();
+                                setTimeout(function () {
+                                window.location.href = "data-pengguna.php";  }, 100);
+                            
+                            </script>';
 
-          }
+                    }
+                  else
+                    {
+                      echo '<script >
+                              $("#ModalGagal").modal();
+                                setTimeout(function () {
+                                window.location.href = "data-pengguna.php";  }, 100);
+                            
+                            </script>';
+                    }
+
+              } else{
+                 echo '<script >
+                            $("#ModalDuplikat").modal();
+                              setTimeout(function () {
+                              window.location.href = "data-pengguna.php";  }, 100);
+                          
+                          </script>';
+              }
+        }
           
  
   if(isset($_POST['edit']))

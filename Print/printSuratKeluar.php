@@ -29,10 +29,8 @@
            <tr>
             <td width="60%"><div style=" font-size: 13px;margin-left: -300px ;margin-top: -6px ; text-align: center ;">Denpasar-Bali 80235</div></td>
           </tr>
-          <hr style=" margin-top: -6px ;width: 14px;">
-          <br> <br>
-
     </table>
+    <div style=" margin-top: -6px ;margin-left: 50px ;margin-right: 50px ;height: 50px"><hr></div>
 <?php
 
 include "koneksi.php";
@@ -88,18 +86,8 @@ $format1 = date('d F Y', strtotime($tanggal ));
  
 </table>
 
-<table  style="width:100%">
-    <tr>
-        <td style="width: 17%;height:50px"></td>
-        <td style="width: 70%"></td>
-        <td ></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td style="font-size: 16px;width: 80%; text-align: justify; margin-right: 64px ;" > <?php echo $data['Isi_surat'];  ?></td>
-<td ></td>
-    </tr>
-</table>
+<div style="margin-top:30px ;margin-left: 110px ;margin-right: 80px ; font-size: 15px;text-align: justify;"><?php echo $data['Isi_surat'];  ?></div>
+
 <br> <br><br> <br>
 <table style="width:100%">
     <tr>
@@ -128,5 +116,5 @@ ob_end_clean();
 require_once('html2pdf/html2pdf.class.php');
 $pdf = new HTML2PDF('P','A4','en');
 $pdf->WriteHTML($html);
-$pdf->Output('Surat_keluar.pdf', 'D');
+$pdf->Output('Surat_keluar_'.$data['Nomor_surat_keluar'].'.pdf', 'D');
 ?>

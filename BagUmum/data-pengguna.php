@@ -224,7 +224,15 @@
           </div>
         </div>
       </div>
-
+      <div class="modal modal-danger" id="ModalDuplikat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+              <h4 class="modal-title" id="myModalLabel">NIP Sudah Terdaftar !!</h4>
+            </div>
+          </div>
+        </div>
+      </div>
     
      
 
