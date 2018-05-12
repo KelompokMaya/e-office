@@ -35,7 +35,7 @@
 
 include "koneksi.php";
 $No_surat_keluar=$_GET['id'];
-$query = "SELECT * FROM tb_suratkeluar WHERE Nomor_surat_keluar='$No_surat_keluar'"; // Tampilkan semua data gambar
+$query = "SELECT * FROM tb_suratkeluar sk,tb_jenis_surat js where sk.Nomor_surat_keluar='$No_surat_keluar' AND sk.Id_jenis_surat= js.Id_jenis_surat"; // Tampilkan semua data gambar
 $sql = mysqli_query($connect, $query); // Eksekusi/Jalankan query dari variabel $query
 $data = mysqli_fetch_array($sql); // Ambil semua data dari hasil eksekusi $sql
        
@@ -57,7 +57,7 @@ $format1 = date('d F Y', strtotime($tanggal ));
   </tr>
   <tr>
     <td style="font-size: 15px;margin-left: 60px ;" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sifat</td>
-    <td >: <?php echo $data['Sifat_surat'];  ?></td>
+    <td >: <?php echo $data['Nama_jenis_surat'];  ?></td>
     <td ></td>
 
 

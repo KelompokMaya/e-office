@@ -2,38 +2,22 @@
 
               <ul class="sidebar-menu">
                 <li class="header">MENU</li>
-                <li class="active treeview">
+                <li class=" active treeview">
                   <a href="index.php">
                     <i class="fa  fa-home"></i> <span>Home</span>
                   </a>
                 </li>
-                <li class=" treeview">
-                  <a href="data-pengguna.php">
-                    <i class="fa  fa-user"></i> <span>Data Pengguna</span>
-                    
-                  </a>
-                </li>
-                <li class=" treeview">
+                 <li class="  treeview">
                   <a href="surat-masuk.php">
                     <i class="fa fa-download"></i> <span>Surat Masuk</span>
                   </a>
-                </li>   
-                <li class=" treeview">
-                  <a href="disposisi.php">
-                    <i class="fa fa-folder"></i> <span>Disposisi</span>
-                  </a>
                 </li>
-                <li class=" treeview">
+                 <li class=" treeview">
                   <a href="surat-keluar.php">
                     <i class="fa fa-upload"></i> <span>Surat Keluar</span>
                   </a>
-                </li>  
-                <li class=" treeview">
-                  <a href="maintenance.php">
-                    <i class="fa fa-gears"></i> <span>Maintenance Jenis Surat </span>
-                  </a>
-                </li>  
-               
+                </li>    
+              
               </ul>
     </section>
     <!-- /.sidebar -->

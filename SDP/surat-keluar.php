@@ -8,31 +8,15 @@
                   </a>
                 </li>
                 <li class=" treeview">
-                  <a href="data-pengguna.php">
-                    <i class="fa  fa-user"></i> <span>Data Pengguna</span>
-                    
-                  </a>
-                </li>
-                <li class=" treeview">
                   <a href="surat-masuk.php">
                     <i class="fa fa-download"></i> <span>Surat Masuk</span>
                   </a>
                 </li>   
-                <li class=" treeview">
-                  <a href="disposisi.php">
-                    <i class="fa fa-folder"></i> <span>Disposisi</span>
-                  </a>
-                </li>
                 <li class="active treeview">
                   <a href="surat-keluar.php">
                     <i class="fa fa-upload"></i> <span>Surat Keluar</span>
                   </a>
-                </li> 
-               <li class=" treeview">
-                  <a href="maintenance.php">
-                    <i class="fa fa-gears"></i> <span>Maintenance Jenis Surat </span>
-                  </a>
-                </li>  
+                </li>    
               
               </ul>
     </section>
@@ -101,8 +85,9 @@
               
               <!-- Proses mencari data ke database -->
               <?php
+              $jabatan=$_SESSION['jabatan'];
                                 
-                $sql = mysqli_query($koneksi, "SELECT * FROM tb_suratkeluar a,tb_jenis_surat b WHERE a.Id_jenis_surat=b.Id_jenis_surat ");
+               $sql = mysqli_query($koneksi, "SELECT * FROM tb_suratkeluar a,tb_jenis_surat b WHERE a.Id_jenis_surat=b.Id_jenis_surat AND a.Dibuat_oleh='$jabatan'");
                  $no = 1;
                   while($row = mysqli_fetch_assoc($sql)){
 

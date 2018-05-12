@@ -1,7 +1,24 @@
 <?php
 session_start();
 
+if ($_SESSION['hak_akses']=='Sub Bagian Umum') {
+  header("Location: BagUmum");
+}
+if ($_SESSION['hak_akses']=='Sekretaris') {
+  header("Location: Sekretaris");
+}
+if ($_SESSION['hak_akses']=='Kepala Dinas') {
+  header("Location: KepalaDinas");
+}
+if ($_SESSION['hak_akses']=='SDP') {
+  header("Location: SDP");
+}
+
+
+
   ?>
+
+
  <!DOCTYPE html>
 <html lang="en" >
 
@@ -87,6 +104,49 @@ session_start();
 
               echo ' <script type="text/javascript">
                           window.location.href = "BagUmum";
+                          </script> ';
+
+              
+          
+          
+          } else if ($row['Hak_akses']=='Sekretaris') {
+
+                $_SESSION['nama']=$row['Nama'];
+                $_SESSION['nip']=$row['NIP'];
+                $_SESSION['hak_akses']=$row['Hak_akses'];
+                
+
+              echo ' <script type="text/javascript">
+                          window.location.href = "Sekretaris";
+                          </script> ';
+
+              
+          
+          
+          } else if ($row['Hak_akses']=='Kepala Dinas') {
+
+                $_SESSION['nama']=$row['Nama'];
+                $_SESSION['nip']=$row['NIP'];
+                $_SESSION['hak_akses']=$row['Hak_akses'];
+                
+
+              echo ' <script type="text/javascript">
+                          window.location.href = "KepalaDinas";
+                          </script> ';
+
+              
+          
+          
+          }  else if ($row['Hak_akses']=='SDP') {
+
+                $_SESSION['nama']=$row['Nama'];
+                $_SESSION['nip']=$row['NIP'];
+                $_SESSION['hak_akses']=$row['Hak_akses'];
+                $_SESSION['jabatan']=$row['Jabatan'];
+                
+
+              echo ' <script type="text/javascript">
+                          window.location.href = "SDP";
                           </script> ';
 
               

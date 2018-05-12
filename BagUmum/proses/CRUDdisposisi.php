@@ -21,13 +21,17 @@
             // $disposisi_Asal_surat            = $_POST['disposisi-Asal_surat'];
             // $disposisi_Perihal               = $_POST['disposisi-Perihal'];
             $disposisi_Tanggal_penyelesaian  = $_POST['disposisi-Tanggal_penyelesaian'];
-            $disposisi_NIP                   = $_POST['disposisi-NIP'];
             $disposisi_Catatan               = $_POST['disposisi-Catatan'];
             $disposisi_Tujuan                = $_POST['disposisi-Tujuan'];
             $disposisi_isi                   = $_POST['disposisi-isi'];
+
+            $cek = mysqli_query($koneksi, "SELECT * FROM tb_disposisi WHERE No_urut_disposisi='$disposisi_NU'")or die (mysqli_error($koneksi));
+
+            if(mysqli_num_rows($cek) == 0)
+              {
            
             
-               $update = mysqli_query($koneksi, " UPDATE tb_disposisi set No_urut_disposisi='$disposisi_NU', Kode_surat='$disposisi_kode',Tanggal_penyelesaian_disposisi='$disposisi_Tanggal_penyelesaian',NIP='$disposisi_NIP',Disposisi='$disposisi_isi',Tujuan='$disposisi_Tujuan',Catatan='$disposisi_Catatan' WHERE Nomor_surat_masuk='$disposisi_Nomor_surat_masuk' ") or die(mysqli_error($koneksi));
+               $update = mysqli_query($koneksi, " UPDATE tb_disposisi set No_urut_disposisi='$disposisi_NU', Kode_surat='$disposisi_kode',Tanggal_penyelesaian_disposisi='$disposisi_Tanggal_penyelesaian',Disposisi='$disposisi_isi',Kode_bagian='$disposisi_Tujuan',Catatan='$disposisi_Catatan' WHERE Nomor_surat_masuk='$disposisi_Nomor_surat_masuk' ") or die(mysqli_error($koneksi));
                 if($update)
                 { 
                    echo '<script >
@@ -47,6 +51,15 @@
                         
                         </script>';
                 }
+              } else{
+
+               echo '<script >
+                            $("#ModalDuplikatdisposisi").modal();
+                              setTimeout(function () {
+                              window.location.href = "surat-masuk.php";  }, 100);
+                          
+                          </script>';
+            }
           }
 
 
@@ -85,6 +98,80 @@
                           
                           </script>';
             }
+      }
+
+      // Proses tampil modal hapus data 
+      if(isset($_GET["kirim"]))
+        {
+               $id_disposisi = $_GET["id"];
+               $hak_akses = $_SESSION['hak_akses'];
+               $update = mysqli_query($koneksi, " UPDATE tb_disposisi set Status_disposisi='terkirim sekretaris' WHERE No_urut_disposisi='$id_disposisi' ") or die(mysqli_error($koneksi));
+                
+
+              $sql  = mysqli_query($koneksi,"SELECT * FROM tb_disposisi where No_urut_disposisi='$id_disposisi'");
+              $row  = mysqli_fetch_array($sql);
+              $judul= $row['Perihal'];
+
+               $insert = mysqli_query($koneksi, "INSERT INTO tb_notif( asal_hak_akses,tujuan_hak_akses,judul,id_disposisi,status) VALUES('$hak_akses','Sekretaris','$judul','$id_disposisi','terkirim')") or die(mysqli_error($koneksi));
+
+                if($update&&$insert)
+                { 
+                   echo '<script >
+                          $("#ModalSukses").modal();
+                            setTimeout(function () {
+                            window.location.href = "disposisi.php";  }, 100);
+                        
+                        </script>';
+
+                }
+              else
+                {
+                  echo '<script >
+                          $("#ModalGagal").modal();
+                            setTimeout(function () {
+                            window.location.href = "disposisi.php";  }, 100);
+                        
+                        </script>';
+                }
+     
+ 
+           
+      } 
+      if(isset($_GET["kirimbidang"]))
+        {
+               $id_disposisi = $_GET["id"];
+               $hak_akses = $_SESSION['hak_akses'];
+               $update = mysqli_query($koneksi, " UPDATE tb_disposisi set Status_disposisi='terkirim bidang' WHERE No_urut_disposisi='$id_disposisi' ") or die(mysqli_error($koneksi));
+                
+
+              $sql  = mysqli_query($koneksi,"SELECT * FROM tb_disposisi where No_urut_disposisi='$id_disposisi'");
+              $row  = mysqli_fetch_array($sql);
+              $judul= $row['Perihal'];
+
+               $insert = mysqli_query($koneksi, "INSERT INTO tb_notif( asal_hak_akses,tujuan_hak_akses,judul,id_disposisi,status) VALUES('$hak_akses','SDP','$judul','$id_disposisi','terkirim')") or die(mysqli_error($koneksi));
+
+                if($update&&$insert)
+                { 
+                   echo '<script >
+                          $("#ModalSukses").modal();
+                            setTimeout(function () {
+                            window.location.href = "disposisi.php";  }, 100);
+                        
+                        </script>';
+
+                }
+              else
+                {
+                  echo '<script >
+                          $("#ModalGagal").modal();
+                            setTimeout(function () {
+                            window.location.href = "disposisi.php";  }, 100);
+                        
+                        </script>';
+                }
+     
+ 
+           
       } 
           
   ?>

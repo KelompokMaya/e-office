@@ -1,7 +1,7 @@
 <?php
 
     $NS = $_GET['id'];
-    $sql = mysqli_query($koneksi,"SELECT * FROM tb_suratmasuk where Nomor_surat_masuk='$NS'");
+    $sql = mysqli_query($koneksi,"SELECT * FROM tb_suratmasuk sm,tb_jenis_surat js where sm.Nomor_surat_masuk='$NS' AND sm.Id_jenis_surat= js.Id_jenis_surat");
     $row=  mysqli_fetch_array($sql);
 ?>
 <!-- form Edit Surat -->
@@ -50,21 +50,36 @@
                        </div>
                   </div>
                   <div class="col-xs-12 form-group">
+                     <label style="text-align:right;" class="col-sm-3 control-label">Jenis Surat</label>
+                        <div class="col-sm-7 control-label" style="text-align:left;">
+                            <select name="edit-Jenis_surat" id="edit-Jenis_surat" class="form-control"  >
+                              <option value="<?php echo $row['Id_jenis_surat']; ?>" ><?php echo $row['Nama_jenis_surat']; ?></option>
+                               <?php          
+                                $sql = mysqli_query($koneksi, "SELECT * FROM tb_jenis_surat  WHERE surat='surat masuk' ");
+                                 $no = 1;
+                                  while($rowx = mysqli_fetch_assoc($sql)){
+
+                              ?>   
+                              <option value="<?php echo $row['Id_jenis_surat']; ?>" ><?php echo $rowx['Nama_jenis_surat']; ?></option>
+                              <?php } ?>
+                          </select>   
+                        </div>
+                  </div>
+                  <div class="col-xs-12 form-group">
                      <label style="text-align:right;" class="col-sm-3 control-label">Sifat Surat</label>
                         <div class="col-sm-7 control-label" style="text-align:left;">
                             <select name="edit-Sifat_surat" id="edit-Sifat_surat" class="form-control"  >
                               <option value="<?php echo $row['Sifat_surat']; ?>" ><?php echo $row['Sifat_surat']; ?></option>
-                              <option value="Biasa" >Biasa</option>
-                              <option value="Penting" >Penting</option>
-                              <option value="Rahasia" >Rahasia</option>
-                              <option value="Pribadi" >Pribadi</option>
+                              <option value="Undangan" >Undangan</option>
+                              <option value="Dinas" >Dinas</option>
                           </select>   
                         </div>
                   </div>
                    <div class="col-xs-12 form-group">
                         <label class="col-sm-3 control-label" style="text-align:right;">Perihal</label>
                          <div class="col-sm-7 control-label" style="text-align:left;">
-                           <input id='edit-Perihal' class='form-control' name='edit-Perihal' type='text' value="<?php echo $row['Perihal']; ?>"/>
+                           
+                            <textarea id='edit-Perihal' class='form-control' name='edit-Perihal' type='text' ><?php echo $row['Perihal']; ?></textarea>
                          </div>
                   </div>
                   

@@ -28,6 +28,11 @@
                     <i class="fa fa-upload"></i> <span>Surat Keluar</span>
                   </a>
                 </li>    
+               <li class=" treeview">
+                  <a href="maintenance.php">
+                    <i class="fa fa-gears"></i> <span>Maintenance Jenis Surat </span>
+                  </a>
+                </li>  
               
               </ul>
     </section>
@@ -73,15 +78,13 @@
                 <tr>
                   <th width="4%">No</th>
                   <th width="7%" >Kode</th>
-                  <th width="9%" >No Urut</th>
+                  <th width="8%" >No Urut</th>
                   <th width="10%">Asal Surat</th>
                   <th width="13%">No Surat Masuk</th>
                   <th width="9%">Tgl Surat</th>
-                  <th width="14%">Tgl Penyelesaian</th>
-                  <th width="10%">Perihal</th>
-                  <th width="8%">Tujuan</th>
-                  <th width="8%">Disposisi</th>
-                  <th  style="text-align: center;width: 12%">Aksi</th>
+                  <th width="12%">Tgl Penyelesaian</th>
+                  <th width="15%">Perihal</th>
+                  <th  style="text-align: center;width: 14%">Aksi</th>
                 </tr>
                 </thead>
                 <tbody >
@@ -89,7 +92,7 @@
               <!-- Proses mencari data ke database -->
               <?php
                                 
-                $sql = mysqli_query($koneksi, "SELECT * FROM tb_disposisi ");
+                $sql = mysqli_query($koneksi, "SELECT * FROM tb_disposisi  ");
                  $no = 1;
                   while($row = mysqli_fetch_assoc($sql)){
 
@@ -103,12 +106,23 @@
                                   <td ><?php echo $row['Tanggal_surat'];?></td>
                                   <td ><?php echo $row['Tanggal_penyelesaian_disposisi'];?></td>
                                   <td ><?php echo $row['Perihal'];?></td>
-                                  <td ><?php echo $row['Tujuan'];?></td>
-                                  <td ><?php echo $row['Disposisi'];?></td>
                                   <td style="text-align: center;">
                                   <div class="btn-group">
+                                  <?php if ($row['Status_disposisi']=='belum terkirim') { ?>
+                                    <a href="disposisi.php?kirim&&id=<?php echo $row['No_urut_disposisi'];?>"  class="btn btn-sm btn-success btn-flat" data-toggle="tooltip" title="Kirim Disposisi" ><i class="fa fa-paper-plane"></i></a>
                                     <a href="disposisi.php?edit&&id=<?php echo $row['Nomor_surat_masuk'];?>" class="btn btn-sm btn-info btn-flat" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil"></i></a>
                                     <a href="disposisi.php?hapus&&id=<?php echo $row['Nomor_surat_masuk'];?>"  class="btn btn-sm btn-danger btn-flat" data-toggle="tooltip" title="Delete" ><i class="fa fa-trash"></i></a>
+                                    
+                                  <?php } elseif ($row['Status_disposisi']=='terkirim Sub Bagian Umum') { ?>
+                                    <a href="disposisi.php?kirimbidang&&id=<?php echo $row['No_urut_disposisi'];?>"  class="btn btn-success btn-flat" data-toggle="tooltip" title="Kirim Disposisi ke Bidang" ><i class="fa fa-paper-plane"></i></a>
+                                    
+                                  <?php } elseif ($row['Status_disposisi']=='terima bidang') { 
+                                    echo '<span style="font-size: 14px" class="label label-info ">Selesai</span>';
+                                    } else{ 
+                                    echo '<span style="font-size: 14px" class="label label-success ">Terkirim</span>';
+                                    } ?>
+                                    
+                                    
                                   </div>
                                 </td>
                             </tr>
@@ -128,9 +142,7 @@
                   <th >Tgl Surat</th>
                   <th >Tgl Penyelesaian</th>
                   <th >Perihal</th>
-                  <th >Tujuan</th>
-                  <th >Disposisi</th>
-                  <th >Aksi</th>
+                  <th style="text-align: center;">Aksi</th>
                   </tr>
                 </tfoot>
                 
@@ -184,6 +196,15 @@
           <div class="modal-content">
             <div class="modal-body">
               <h4 class="modal-title" id="myModalLabel">Kesalahan penyimpanan data</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+       <div class="modal modal-danger" id="ModalDuplikatdisposisi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+              <h4 class="modal-title" id="myModalLabel">Nomorurut Disposisi Sudah ada !!</h4>
             </div>
           </div>
         </div>
