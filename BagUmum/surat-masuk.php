@@ -28,9 +28,11 @@
                     <i class="fa fa-upload"></i> <span>Surat Keluar</span>
                   </a>
                 </li> 
-                <a href="maintenace.php">
+                 <li class=" treeview">
+                <a href="maintenance.php">
                     <i class="fa fa-upload"></i> <span>Maintenance Jenis Surat</span>
                   </a>   
+                </li>
               
               </ul>
     </section>
@@ -225,7 +227,7 @@
                                     <a href="surat-masuk.php?tambahdisposisi&&id=<?php echo $row['Nomor_surat_masuk'];?>" class="btn btn-primary btn-flat" data-toggle="tooltip" title="Buat Disposisi"  ><i class="fa fa-book"></i></a>
                                     <?php } ?>
                                     <a href="surat-masuk.php?edit&&id=<?php echo $row['Nomor_surat_masuk'];?>" class="btn btn-info btn-flat" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil"></i></a>
-                                    <a href="surat-masuk.php?hapus&&id=<?php echo $row['Nomor_surat_masuk'];?>"  class="btn btn-danger btn-flat" data-toggle="tooltip" title="Delete" ><i class="fa fa-trash"></i></a>
+                                     <a class="btn btn-danger btn-flat" data-toggle="tooltip" title="Delete" onclick="deleteSuratMasuk(<?php echo $row["No_urut_surat"]; ?>);"><i class="fa fa-trash"></i></a>
                                   </div>
                                 </td>
                             </tr>
@@ -352,6 +354,19 @@ include("proses/CRUDsuratmasuk.php");
       $('#tabelSurat').css('display','block');     
       
       }
+
+   function deleteSuratMasuk(nourut) {
+         $.ajax({
+           url: "modal/hapusSurat.php",
+           type: "GET",
+           data : {nourut: nourut,},
+              success: function (ajaxData){
+                  $("#ModalEdit").html(ajaxData);
+                  $("#ModalEdit").modal('show',{backdrop: 'true'});
+                  // $("#Modal-tambahPengguna").modal();
+              }
+          });
+       }
 
 
   

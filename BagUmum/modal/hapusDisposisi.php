@@ -1,11 +1,12 @@
 <?php
 
-    $NS = $_GET['id'];
-    $sql = mysqli_query($koneksi,"SELECT * FROM tb_disposisi where Nomor_surat_masuk='$NS'");
+    include '../../database/koneksi.php';
+    $nourut = $_GET['nourut'];
+    $sql = mysqli_query($koneksi,"SELECT * FROM tb_disposisi where No_urut_disposisi='$nourut'");
     $row=  mysqli_fetch_array($sql);
 ?>
 
-      <div class="modal fade" id="ModalHapusDisposisi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      
           <div class="modal-dialog" role="document">
             <div class="modal-content">
                <div class="modal-header">
@@ -26,4 +27,4 @@
                </div>
             </div>
          </div>
-      </div>
+      

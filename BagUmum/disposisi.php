@@ -76,9 +76,9 @@
 
                 <thead style="text-align: center; background:#1874a3 ;color: white">
                 <tr>
-                  <th width="4%">No</th>
+                  
                   <th width="7%" >Kode</th>
-                  <th width="8%" >No Urut</th>
+                  <th width="10%" >No Urut Surat</th>
                   <th width="10%">Asal Surat</th>
                   <th width="13%">No Surat Masuk</th>
                   <th width="9%">Tgl Surat</th>
@@ -93,12 +93,12 @@
               <?php
                                 
                 $sql = mysqli_query($koneksi, "SELECT * FROM tb_disposisi  ");
-                 $no = 1;
+                 
                   while($row = mysqli_fetch_assoc($sql)){
 
               ?>                
                               <tr>
-                                  <td ><?php echo $no?></td>
+                                  
                                   <td ><?php echo $row['Kode_surat'];?></td>
                                   <td ><?php echo $row['No_urut_disposisi'];?></td>
                                   <td ><?php echo $row['Asal_surat'];?></td>
@@ -111,7 +111,8 @@
                                   <?php if ($row['Status_disposisi']=='belum terkirim') { ?>
                                     <a href="disposisi.php?kirim&&id=<?php echo $row['No_urut_disposisi'];?>"  class="btn btn-sm btn-success btn-flat" data-toggle="tooltip" title="Kirim Disposisi" ><i class="fa fa-paper-plane"></i></a>
                                     <a href="disposisi.php?edit&&id=<?php echo $row['Nomor_surat_masuk'];?>" class="btn btn-sm btn-info btn-flat" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil"></i></a>
-                                    <a href="disposisi.php?hapus&&id=<?php echo $row['Nomor_surat_masuk'];?>"  class="btn btn-sm btn-danger btn-flat" data-toggle="tooltip" title="Delete" ><i class="fa fa-trash"></i></a>
+                                  
+                                    <a class="btn btn-danger btn-flat btn-sm" data-toggle="tooltip" title="Delete" onclick="deleteDisposisi(<?php echo $row["No_urut_disposisi"]; ?>);"><i class="fa fa-trash"></i></a>
                                     
                                   <?php } elseif ($row['Status_disposisi']=='terkirim Sub Bagian Umum') { ?>
                                     <a href="disposisi.php?kirimbidang&&id=<?php echo $row['No_urut_disposisi'];?>"  class="btn btn-success btn-flat" data-toggle="tooltip" title="Kirim Disposisi ke Bidang" ><i class="fa fa-paper-plane"></i></a>
@@ -126,17 +127,15 @@
                                   </div>
                                 </td>
                             </tr>
-              <?php
-                 $no++;       
+              <?php      
                 }
               ?>
                             
                 </tbody>
                 <tfoot>
                   <tr>
-                  <th width="4%">No</th>
                   <th >Kode</th>
-                  <th >No Urut</th>
+                  <th >No Urut Surat</th>
                   <th >Asal Surat</th>
                   <th >No Surat Masuk</th>
                   <th >Tgl Surat</th>
@@ -241,6 +240,19 @@ include("proses/CRUDdisposisi.php");
       $('#tabelSurat').css('display','block');     
       
       }
+
+  function deleteDisposisi(nourut) {
+         $.ajax({
+           url: "modal/hapusDisposisi.php",
+           type: "GET",
+           data : {nourut: nourut,},
+              success: function (ajaxData){
+                  $("#ModalEdit").html(ajaxData);
+                  $("#ModalEdit").modal('show',{backdrop: 'true'});
+                  // $("#Modal-tambahPengguna").modal();
+              }
+          });
+       }
 
 
   

@@ -21,7 +21,7 @@
                   <div class="col-xs-12 form-group">
                      <div class="col-sm-12 control-label" >
                         <div  class="alert " style="text-align: center ;background-color:#e6e9ef;" >
-                            <h4><strong>TAMBAH DISPOSISI SURAT MASUK</strong></h4> 
+                            <h4><strong>EDIT DISPOSISI SURAT MASUK</strong></h4> 
                         </div>
                      </div>
                   </div>
@@ -63,7 +63,7 @@
                          </div>
                   </div>
                   
-                  </div>
+                 
                   <div class="col-xs-12 form-group" >
                     <label class="col-sm-3 control-label"></label>
                     <div class="col-sm-7 control-label">
@@ -73,6 +73,7 @@
                       </div>
                     </div>
                   </div>
+                   </div>
               </form> 
                   
               </div>

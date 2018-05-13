@@ -76,7 +76,10 @@
   if(isset($_GET["hapus"]))
     {
             echo '<script >
-            $(window).load(function() { $("#ModalHapusSurat").modal(); })
+            $(window).load(function() { 
+              $("#ModalHapusSurat").modal(); 
+              
+         })
             </script>'; 
   include("modal/hapusSurat.php");  
  

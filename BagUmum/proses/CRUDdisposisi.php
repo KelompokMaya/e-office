@@ -63,17 +63,17 @@
           }
 
 
-     // Proses tampil modal hapus data 
-    if(isset($_GET["hapus"]))
-        {
-                echo '<script >
-                $(window).load(function() { $("#ModalHapusDisposisi").modal(); })
-                </script>'; 
-      include("modal/hapusDisposisi.php");  
+    //  // Proses tampil modal hapus data 
+    // if(isset($_GET["hapus"]))
+    //     {
+    //             echo '<script >
+    //             $(window).load(function() { $("#ModalHapusDisposisi").modal(); })
+    //             </script>'; 
+    //   include("modal/hapusDisposisi.php");  
      
      
                
-        }
+    //     }
 
     // Proses hapus data      
     if(isset($_POST['hapus']))
