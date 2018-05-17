@@ -41,12 +41,14 @@
               $Ditugaskan_kepada= '-';
               $Asal_surat             = $_POST['Asal_surat'];
             }
+
+            $dibuat_oleh = $_SESSION['jabatan'];
              
             $cek = mysqli_query($koneksi, "SELECT * FROM tb_suratkeluar WHERE Nomor_surat_keluar='$Nomor_surat_keluar'")or die (mysqli_error($koneksi));
 
           if(mysqli_num_rows($cek) == 0)
             {
-                $insert = mysqli_query($koneksi, "INSERT INTO tb_suratkeluar(Nomor_surat_keluar,Ditugaskan_kepada,Tujuan_surat,Tanggal_surat,Perihal,Asal_surat,Dasar_surat,Sifat_surat,Isi_surat,Id_jenis_surat) VALUES('$Nomor_surat_keluar','$Ditugaskan_kepada','$Tujuan_surat','$Tanggal_surat','$Perihal','$Asal_surat','$Dasar_surat','$Sifat_surat','$Isi_surat','$Jenis_surat')") or die(mysqli_error($koneksi));
+                $insert = mysqli_query($koneksi, "INSERT INTO tb_suratkeluar(Nomor_surat_keluar,Ditugaskan_kepada,Tujuan_surat,Tanggal_surat,Perihal,Asal_surat,Dasar_surat,Sifat_surat,Isi_surat,Id_jenis_surat,Dibuat_oleh) VALUES('$Nomor_surat_keluar','$Ditugaskan_kepada','$Tujuan_surat','$Tanggal_surat','$Perihal','$Asal_surat','$Dasar_surat','$Sifat_surat','$Isi_surat','$Jenis_surat','$dibuat_oleh')") or die(mysqli_error($koneksi));
                   if($insert)
                   { 
                      echo '<script >

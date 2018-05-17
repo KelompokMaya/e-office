@@ -28,10 +28,10 @@ $format1 = date('d F Y', strtotime($tanggal ));
 <br> 
 
 <table  style="width:95%;">
-  <tr style="font-size: 15px;">
+  <tr  style="width: 100%; font-size: 15px;">
     <td valign="top" style="width: 27%; padding-top:15px; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dasar  </td>
     <td valign="top" style="width: 3%;padding-top:15px;">:</td>
-    <td valign="top" style="width: 70%;" ><br><?php echo $data['Dasar_surat'];  ?></td>
+    <td valign="top"  style="width: 70%;"><br><?php echo $data['Dasar_surat'];  ?></td>
   </tr>
   <tr style="font-size: 17px;">
     <br>
@@ -45,10 +45,10 @@ $format1 = date('d F Y', strtotime($tanggal ));
     <td valign="top" style="padding-top:14px;">:</td>
     <td valign="top"><?php echo $data['Ditugaskan_kepada'];  ?></td>
   </tr>
-  <tr style="font-size: 15px;">
+  <tr style="font-size: 15px;width: 100%;">
   <td valign="top" style="padding-top:15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Untuk</td>
   <td valign="top" style="padding-top:15px;">:</td>
-  <td  valign="top" style="padding-top:15px;"><?php echo $data['Perihal'];  ?></td>
+  <td  valign="top" style="width: 70%; padding-top:15px;"><?php echo $data['Perihal'];  ?></td>
   </tr>
   
  

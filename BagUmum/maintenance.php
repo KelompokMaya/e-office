@@ -30,7 +30,7 @@
                 </li>  
                  <li class="active treeview">
                   <a href="maintenance.php">
-                    <i class="fa fa-gears"></i> <span>Maintenance Jenis Surat </span>
+                    <i class="fa fa-gears"></i> <span>Jenis Surat </span>
                   </a>
                 </li>   
                 
@@ -101,14 +101,14 @@
                                   <td ><?php echo $no?></td>
                                   <td ><?php echo $row['Id_jenis_surat'];?></td>
                                   <td ><?php echo $row['Nama_jenis_surat'];?></td>
-                                  <td ><?php echo $row['surat'];?></td>
-                                  <td ><?php echo $row['status'];?></td>
+                                  <td ><?php echo $row['Surat'];?></td>
+                                  <td ><?php echo $row['Status'];?></td>
                                   <td style="text-align: center;">
                                   <div class="btn-group">
                                     <a class="btn btn-info btn-flat" data-toggle="tooltip" title="Edit"  href="maintenance.php?edit&&id=<?php echo $row['Id_jenis_surat'];?>"  > Edit</a>
 
 
-                                    <?php if ($row['status']=='aktif') { ?>
+                                    <?php if ($row['Status']=='aktif') { ?>
                                      <a class="btn btn-danger btn-flat" data-toggle="tooltip" href="maintenance.php?status=aktif&&id=<?php echo $row['Id_jenis_surat'];?>" >Non Aktif</a>
 
                                     <?php } else { ?>
@@ -166,8 +166,8 @@
                     <label > Surat </label>
                     <div class="control-label" style="text-align:left;">
                         <select name="Surat" id="Surat" class="form-control"  >
-                              <option value="surat masuk" > surat masuk</option>
-                              <option value="surat keluar" > surat keluar</option>
+                              <option value="Surat Masuk" > surat masuk</option>
+                              <option value="Surat Keluar" > surat keluar</option>
                               
                           </select>                                     
                      </div>

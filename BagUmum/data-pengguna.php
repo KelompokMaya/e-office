@@ -30,7 +30,7 @@
                 </li> 
                 <li class=" treeview">
                   <a href="maintenance.php">
-                    <i class="fa fa-gears"></i> <span>Maintenance Jenis Surat </span>
+                    <i class="fa fa-gears"></i> <span>Jenis Surat </span>
                   </a>
                 </li>     
                 

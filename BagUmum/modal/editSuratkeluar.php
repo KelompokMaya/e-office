@@ -55,12 +55,14 @@
                           <input id='Tanggal_surat' class='form-control' name='Tanggal_surat' type='date' value="<?php echo $row['Tanggal_surat']; ?>" /> 
                        </div>
                   </div>
+                      <?php if ($_GET['edit']!='sk2') { ?>
                   <div class="col-xs-12 form-group">
                        <label class="col-sm-3 control-label" style="text-align:right;">Asal Surat</label>
                        <div class="col-sm-7 control-label" style="text-align:left;">
                           <input id='Asal_surat' class='form-control' name='Asal_surat' type='text' value="<?php echo $row['Asal_surat']; ?>" /> 
                        </div>
                   </div>
+                    <?php } ?>
                   <?php if ($_GET['edit']=='sk2') { ?>
                        <div class="col-xs-12 form-group">
                          <label class="col-sm-3 control-label" style="text-align:right;">Dasar Surat</label>
@@ -70,6 +72,7 @@
                        </div>
                     
                   <?php } ?>
+                   <?php if ($_GET['edit']!='sk2') { ?>
                   <div class="col-xs-12 form-group">
                      <label style="text-align:right;" class="col-sm-3 control-label">Sifat Surat</label>
                         <div class="col-sm-7 control-label" style="text-align:left;">
@@ -82,8 +85,13 @@
                           </select>   
                         </div>
                   </div>
+                   <?php } ?>
                    <div class="col-xs-12 form-group">
+                        <?php if ($_GET['edit']=='sk2') { ?>
+                        <label class="col-sm-3 control-label" style="text-align:right;">Untuk</label>
+                        <?php } else { ?>
                         <label class="col-sm-3 control-label" style="text-align:right;">Perihal</label>
+                        <?php } ?>
                          <div class="col-sm-7 control-label" style="text-align:left;">
                            <input id='Perihal' class='form-control' name='Perihal' type='text' value="<?php echo $row['Perihal']; ?>" />
                          </div>

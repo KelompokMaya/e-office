@@ -30,7 +30,7 @@
                 </li> 
                <li class=" treeview">
                   <a href="maintenance.php">
-                    <i class="fa fa-gears"></i> <span>Maintenance Jenis Surat </span>
+                    <i class="fa fa-gears"></i> <span>Jenis Surat </span>
                   </a>
                 </li>  
               
@@ -102,7 +102,7 @@
               <!-- Proses mencari data ke database -->
               <?php
                                 
-                $sql = mysqli_query($koneksi, "SELECT * FROM tb_suratkeluar a,tb_jenis_surat b WHERE a.Id_jenis_surat=b.Id_jenis_surat ");
+                $sql = mysqli_query($koneksi, "SELECT * FROM tb_suratkeluar a,tb_jenis_surat b WHERE a.Id_jenis_surat=b.Id_jenis_surat  ");
                  $no = 1;
                   while($row = mysqli_fetch_assoc($sql)){
 

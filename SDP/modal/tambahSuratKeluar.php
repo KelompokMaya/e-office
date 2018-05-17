@@ -66,24 +66,30 @@
                        </div>
                     
                   <?php } ?>
+                   <?php if ($_POST['Jenis_surat']=='sk1') { ?>
                   <div class="col-xs-12 form-group">
                      <label style="text-align:right;" class="col-sm-3 control-label">Sifat Surat</label>
                         <div class="col-sm-7 control-label" style="text-align:left;">
                             <select name="Sifat_surat" id="Sifat_surat" class="form-control"  >
                              <option value="01" >Biasa</option>
                               <option value="02" >Penting</option>
-                              <option value="03" >Rahasia</option>
-                              <option value="04" >Pribadi</option>
+                              <option value="03" >Segera</option>
+                              
                           </select>   
                         </div>
                   </div>
+                  <?php } ?>
                    <div class="col-xs-12 form-group">
+                         <?php if ($_POST['Jenis_surat']=='sk2') { ?>
+                        <label class="col-sm-3 control-label" style="text-align:right;">Untuk</label>
+                        <?php } else { ?>
                         <label class="col-sm-3 control-label" style="text-align:right;">Perihal</label>
+                        <?php } ?>
                          <div class="col-sm-7 control-label" style="text-align:left;">
                            <input id='Perihal' class='form-control' name='Perihal' type='text' />
                          </div>
                   </div>
-                  <?php if ($_POST['Jenis_surat']!='Surat Perintah Tugas') { ?>
+                  <?php if ($_POST['Jenis_surat']!='sk2') { ?>
                   <div class="col-xs-12 form-group">
                          <label class="col-sm-3 control-label" style="text-align:right;">Isi Surat</label>
                          <div class="col-sm-7 control-label" style="text-align:left;">

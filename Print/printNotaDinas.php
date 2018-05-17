@@ -52,7 +52,7 @@ $format1 = date('d F Y', strtotime($tanggal ));
  <div style=" margin-top: -6px ;margin-left: 50px ;margin-right: 60px ; height: 7px"><hr></div>
 
 
-<div style="margin-top:50px ;margin-left: 110px ;margin-right: 100px ;line-height: 200%; font-size: 18px;text-align: justify;"><?php echo $data['Isi_surat'];  ?></div>
+<div style="margin-top:50px ;margin-left: 100px ;margin-right: 90px ;line-height: 200%; font-size: 14px;text-align: justify;"><?php echo $data['Isi_surat'];  ?></div>
 
 <br> <br><br> <br><br> <br>
 <table style="width:100%">

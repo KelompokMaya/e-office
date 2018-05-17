@@ -35,7 +35,7 @@
                   <div class="col-xs-12 form-group">
                         <label class="col-sm-3 control-label" style="text-align:right;">Nomor Urut</label>
                          <div class="col-sm-7 control-label" style="text-align:left;">
-                           <input id='disposisi-NU' class='form-control' name='disposisi-NU' value="<?php echo $row['No_urut_disposisi']; ?>"  type='text' />
+                           <input id='disposisi-NU' class='form-control' name='disposisi-NU' value="<?php echo $row['No_urut_disposisi']; ?>"  type='text' readonly />
                          </div>
                   </div>
                   <div class="col-xs-12 form-group">

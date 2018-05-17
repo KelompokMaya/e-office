@@ -10,8 +10,17 @@
  
  <script>
   $(function () {
-    $("#example1").DataTable();
-    $("#example2").DataTable();
+    $("#example1").DataTable({
+
+        "ordering": false
+       
+    });
+    $("#example2").DataTable(
+    	{
+
+        "ordering": false
+       
+    });
     
   });
 </script>

@@ -135,11 +135,15 @@
             $Perihal               = $_POST['edit-Perihal'];
             $Sifat_surat           = $_POST['edit-Sifat_surat'];
 
+            
+
             if (!empty($_FILES['edit-file_Surat']['name'])) {
                 $File       = $_FILES['edit-file_Surat']['name'];
                 $tmp        = $_FILES['edit-file_Surat']['tmp_name'];
                 $file_Surat = date('YmdH_').$File;
                 $path = "../File/".$file_Surat;
+
+           
 
 
                 if(move_uploaded_file($tmp, $path)){
@@ -175,7 +179,7 @@
               
             } else {
 
-               $update = mysqli_query($koneksi, "UPDATE tb_suratmasuk set Nomor_surat_masuk='$Nomor_surat_masuk', Asal_surat='$Asal_surat', Tanggal_input='$Tanggal_terima',Tanggal_surat='$Tanggal_surat', Sifat_surat='$Sifat_surat', Perihal='$Perihal' WHERE Nomor_surat_masuk='$currSM'") or die(mysqli_error($koneksi));
+               $update = mysqli_query($koneksi, "UPDATE tb_suratmasuk set Nomor_surat_masuk='$Nomor_surat_masuk', Asal_surat='$Asal_surat', Tanggal_input='$Tanggal_terima',Tanggal_surat='$Tanggal_surat',Id_jenis_surat='$Jenis_surat', Sifat_surat='$Sifat_surat', Perihal='$Perihal' WHERE Nomor_surat_masuk='$currSM'") or die(mysqli_error($koneksi));
                       if($update)
                         { 
                            echo '<script >

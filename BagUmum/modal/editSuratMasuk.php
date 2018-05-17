@@ -60,7 +60,7 @@
                                   while($rowx = mysqli_fetch_assoc($sql)){
 
                               ?>   
-                              <option value="<?php echo $row['Id_jenis_surat']; ?>" ><?php echo $rowx['Nama_jenis_surat']; ?></option>
+                              <option value="<?php echo $rowx['Id_jenis_surat']; ?>" ><?php echo $rowx['Nama_jenis_surat']; ?></option>
                               <?php } ?>
                           </select>   
                         </div>

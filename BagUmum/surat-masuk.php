@@ -30,7 +30,7 @@
                 </li> 
                  <li class=" treeview">
                 <a href="maintenance.php">
-                    <i class="fa fa-upload"></i> <span>Maintenance Jenis Surat</span>
+                    <i class="fa fa-gears"></i> <span>Jenis Surat</span>
                   </a>   
                 </li>
               
@@ -113,7 +113,7 @@
                                   while($row = mysqli_fetch_assoc($sql)){
 
                               ?>   
-                              <option value="<?php echo $row['Id_jenis_surat']; ?>" ><?php echo $row['Nama_jenis_surat']; ?></option>
+                              <option value="<?php echo $row['Id_jenis_surat']; ?>" ><?php echo $row['Id_jenis_surat']; ?> <?php echo $row['Nama_jenis_surat']; ?></option>
                               <?php } ?>
                           </select>   
                         </div>
@@ -122,8 +122,8 @@
                      <label style="text-align:right;" class="col-sm-3 control-label">Sifat Surat</label>
                         <div class="col-sm-7 control-label" style="text-align:left;">
                             <select name="Sifat_surat" id="Sifat_surat" class="form-control"  >
-                              <option value="Undangan" >Undangan</option>
-                              <option value="Dinas" >Dinas</option>
+                              <option value="Biasa" >Biasa</option>
+                              <option value="Penting" >Penting</option>
                           </select>   
                         </div>
                   </div>
@@ -191,11 +191,11 @@
                   <th style="width: 14%">No Surat Masuk</th>
                   <th style="width: 11%">Asal Surat</th>
                   <th style="width: 14%">Tanggal Terima</th>
-                  <th style="width: 14%">Tanggal Surat</th>
+                  <th style="width: 12%">Tanggal Surat</th>
                   <th style="width: 11%">Jenis Surat</th>
                   <th style="width: 8%" >Perihal</th>
                   <th  style="text-align: center;width: 11%">File Surat</th>
-                  <th  style="text-align: center;width: 13%">Aksi</th>
+                  <th  style="text-align: center;width: 14%">Aksi</th>
                 </tr>
                 </thead>
                 <tbody >
@@ -203,7 +203,7 @@
               <!-- Proses mencari data ke database -->
               <?php
                                 
-                $sql = mysqli_query($koneksi, "SELECT * FROM tb_suratmasuk sm, tb_jenis_surat js WHERE sm.Id_jenis_surat = js.Id_jenis_surat ");
+                $sql = mysqli_query($koneksi, "SELECT sm.*,js.* FROM tb_suratmasuk sm LEFT JOIN tb_jenis_surat js ON sm.Id_jenis_surat = js.Id_jenis_surat group by No_urut_surat HAVING COUNT((No_urut_surat)>1) ORDER BY No_urut_surat  DESC; ");
                  
                   while($row = mysqli_fetch_assoc($sql)){
                   $Nomor_surat_masuk=$row['Nomor_surat_masuk'];
@@ -290,7 +290,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-body">
-              <h4 class="modal-title" id="myModalLabel">Data Berhasil Dihaus</h4>
+              <h4 class="modal-title" id="myModalLabel">Data Berhasil Dihapus</h4>
             </div>
           </div>
         </div>

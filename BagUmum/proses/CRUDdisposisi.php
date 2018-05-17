@@ -25,10 +25,7 @@
             $disposisi_Tujuan                = $_POST['disposisi-Tujuan'];
             $disposisi_isi                   = $_POST['disposisi-isi'];
 
-            $cek = mysqli_query($koneksi, "SELECT * FROM tb_disposisi WHERE No_urut_disposisi='$disposisi_NU'")or die (mysqli_error($koneksi));
-
-            if(mysqli_num_rows($cek) == 0)
-              {
+          
            
             
                $update = mysqli_query($koneksi, " UPDATE tb_disposisi set No_urut_disposisi='$disposisi_NU', Kode_surat='$disposisi_kode',Tanggal_penyelesaian_disposisi='$disposisi_Tanggal_penyelesaian',Disposisi='$disposisi_isi',Kode_bagian='$disposisi_Tujuan',Catatan='$disposisi_Catatan' WHERE Nomor_surat_masuk='$disposisi_Nomor_surat_masuk' ") or die(mysqli_error($koneksi));
@@ -51,16 +48,7 @@
                         
                         </script>';
                 }
-              } else{
-
-               echo '<script >
-                            $("#ModalDuplikatdisposisi").modal();
-                              setTimeout(function () {
-                              window.location.href = "surat-masuk.php";  }, 100);
-                          
-                          </script>';
-            }
-          }
+              }           
 
 
     //  // Proses tampil modal hapus data 
