@@ -53,7 +53,7 @@
                      <label style="text-align:right;" class="col-sm-3 control-label">Jenis Surat</label>
                         <div class="col-sm-7 control-label" style="text-align:left;">
                             <select name="edit-Jenis_surat" id="edit-Jenis_surat" class="form-control"  >
-                              <option value="<?php echo $row['Id_jenis_surat']; ?>" ><?php echo $row['Nama_jenis_surat']; ?></option>
+                              <option value="<?php echo $rowx['Id_jenis_surat']; ?>" ><?php echo $row['Nama_jenis_surat']; ?></option>
                                <?php          
                                 $sql = mysqli_query($koneksi, "SELECT * FROM tb_jenis_surat  WHERE surat='surat masuk' ");
                                  $no = 1;

@@ -40,8 +40,8 @@ if ($_SESSION['hak_akses']=='SDP') {
   <div class="container" style="background-color: #2b9ed8;">
     <div style="background-color: #1874a3; height: 110px; margin-top: -80px;">
       <img src="template/login/img/logos.png"; style="width: 75px; height: 75px; margin: 10px 10px 0px 30px; float: left;">
-      <h2 style="color: white; line-height: 40px; float: left;margin-top: 10px; margin-left: 40px; font-weight: bold;
-">SISTEM INFORMASI E-OFFICE <br> DINAS PARIWISATA PROVINSI BALI</b></h2>
+      <h2 style="color: white; line-height: 40px; float: left;margin-top: 10px; margin-left: 40px; font-weight: bold;">
+        SISTEM INFORMASI E-OFFICE <br> DINAS PARIWISATA PROVINSI BALI</b></h2>
     </div>
 
     <div><br />

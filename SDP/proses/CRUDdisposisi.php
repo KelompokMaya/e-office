@@ -16,10 +16,14 @@
           {
             $disposisi_Nomor_surat_masuk     = $_POST['disposisi-Nomor_surat'];
             $disposisi_NU                    = $_POST['disposisi-NU'];
-            $disposisi_Catatan               = $_POST['disposisi-Catatan'];
+            $tanggal_penyelesaian            = date("Y-m-d");
            
-            
-               $update = mysqli_query($koneksi, " UPDATE tb_disposisi set Catatan='$disposisi_Catatan',Status_disposisi='terima bidang' WHERE Nomor_surat_masuk='$disposisi_Nomor_surat_masuk' ") or die(mysqli_error($koneksi));
+            //mencari no urut terbesar
+            $cek_no_urut=mysqli_query($koneksi, "SELECT max(No_urut_bidang) as num FROM tb_disposisi")or die (mysqli_error($koneksi));
+            $row = mysqli_fetch_assoc($cek_no_urut);
+            $no_urut= $row['num']+1;
+
+               $update = mysqli_query($koneksi, " UPDATE tb_disposisi set tanggal_penyelesaian_disposisi='$tanggal_penyelesaian', No_urut_bidang='$no_urut',Status_disposisi='terima bidang' WHERE Nomor_surat_masuk='$disposisi_Nomor_surat_masuk' ") or die(mysqli_error($koneksi));
                $updatenotif = mysqli_query($koneksi, " UPDATE tb_notif set status='terbaca' WHERE id_disposisi='$disposisi_NU' ") or die(mysqli_error($koneksi));
                 if($update)
                 { 

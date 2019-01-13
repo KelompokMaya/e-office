@@ -41,86 +41,7 @@
      
     <div id="main-content" class="row">
        
-        <!-- form tambah Surat -->
-        <div id="addSuratMasuk" class=" col-xs-12" style="display: none;">
-           <div class="box box-success">
-             
-              <div class="box-header">
-                <div class="col-xs-12">
-                   <div class="col-sm-12 control-label" >
-                    <br>
-                    <div class=" btn-group pull-right">
-                          <button onclick="Batal();" class="btn btn-default btn-flat">Batal</button>
-                    </div>
-              <form id="form_tambahPengguna"  action="" method="post" enctype="multipart/form-data">
-                    <div class=" btn-group pull-right">
-                          <button type="submit"  name="add" value="Simpan"" class="btn btn-primary btn-flat">Tambah</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="box-body">
-                  <div class="col-xs-12 form-group">
-                     <div class="col-sm-12 control-label" >
-                        <div  class="alert " style="text-align: center ;background-color:#e6e9ef;" >
-                            <h4><strong>TAMBAH DATA SURAT MASUK</strong></h4> 
-                        </div>
-                     </div>
-                  </div>
-               
-                  <div class="col-xs-12 form-group">
-                        <label class="col-sm-3 control-label" style="text-align:right;">Nomor Surat Masuk</label>
-                         <div class="col-sm-7 control-label" style="text-align:left;">
-                           <input id='Nomor_surat' class='form-control' name='Nomor_surat' type='text' required />
-                         </div>
-                  </div>
-                  <div class="col-xs-12 form-group">
-                        <label class="col-sm-3 control-label" style="text-align:right;">Asal Surat</label>
-                        <div class="col-sm-7 control-label" style="text-align:left;">
-                          <input id='Asal_surat' class='form-control' name='Asal_surat' type='text'  data-link=""  /> 
-                        </div>
-                  </div>
-                  <div class="col-xs-12 form-group">
-                       <label class="col-sm-3 control-label" style="text-align:right;">Tanggal Terima</label>
-                       <div class="col-sm-7 control-label" style="text-align:left;">
-                          <input id='Tanggal_terima' class='form-control' name='Tanggal_terima' type='date' /> 
-                       </div>
-                  </div>
-                  <div class="col-xs-12 form-group">
-                       <label class="col-sm-3 control-label" style="text-align:right;">Tanggal Surat</label>
-                       <div class="col-sm-7 control-label" style="text-align:left;">
-                          <input id='Tanggal_surat' class='form-control' name='Tanggal_surat' type='date' /> 
-                       </div>
-                  </div>
-                  <div class="col-xs-12 form-group">
-                     <label style="text-align:right;" class="col-sm-3 control-label">Sifat Surat</label>
-                        <div class="col-sm-7 control-label" style="text-align:left;">
-                            <select name="Sifat_surat" id="Sifat_surat" class="form-control"  >
-                              <option value="Biasa" >Biasa</option>
-                              <option value="Penting" >Penting</option>
-                              <option value="Rahasia" >Rahasia</option>
-                              <option value="Pribadi" >Pribadi</option>
-                          </select>   
-                        </div>
-                  </div>
-                   <div class="col-xs-12 form-group">
-                        <label class="col-sm-3 control-label" style="text-align:right;">Perihal</label>
-                         <div class="col-sm-7 control-label" style="text-align:left;">
-                           <input id='Perihal' class='form-control' name='Perihal' type='text' />
-                         </div>
-                  </div>
-                  
-                   <div class="col-xs-12 form-group">
-                      <label class="col-sm-3 control-label" style="text-align:right;">File Surat</label>
-                     <div class="col-sm-9 form-group" style="text-align:left;">
-                       <input type="file" id="file_Surat" name="file_Surat" required>                                    
-                     </div>
-                  </div>
-              </form> 
-                  
-              </div>
-          </div>
-        </div>
+       
 
 <?php 
   // Proses tampil form edit data 
@@ -154,7 +75,8 @@
                   <th style="width: 14%">Tanggal Surat</th>
                   <th style="width: 8%" >Perihal</th>
                   <th  style="text-align: center;width: 11%">File Surat</th>
-                  <th  style="text-align: center;width: 13%">Aksi</th>
+                  <th  style="text-align: center;width: 10%">Detail</th>
+                  <th  style="text-align: center;width: 10%">Aksi</th>
                 </tr>
                 </thead>
                 <tbody >
@@ -162,7 +84,7 @@
               <!-- Proses mencari data ke database -->
               <?php
                                 
-                $sql = mysqli_query($koneksi, "SELECT * FROM tb_disposisi d,tb_suratmasuk sm WHERE d.Nomor_surat_masuk=sm.Nomor_surat_masuk AND d.Status_disposisi='terima bidang' ");
+                $sql = mysqli_query($koneksi, "SELECT * FROM tb_disposisi d,tb_suratmasuk sm WHERE d.Nomor_surat_masuk=sm.Nomor_surat_masuk AND d.Status_disposisi='terima bidang' ORDER BY No_urut_bidang DESC  ");
                  $no = 1;
                   while($row = mysqli_fetch_assoc($sql)){
 
@@ -175,6 +97,9 @@
                                   <td ><?php echo $row['Perihal'];?></td>
                                   <td style="text-align: center;" >
                                     <a target="_blank" href="../File/<?php echo $row['File_surat'];?>" class="btn btn-warning btn-flat" data-toggle="tooltip" title="File Surat"   ><i class="fa fa-file-pdf-o"></i></a>
+                                  </td>
+                                  <td style="text-align: center;" >
+                                    <a onclick="detail(<?php echo  $row['No_urut_disposisi'];?>)"  class="btn  btn-info btn-flat" data-toggle="tooltip" title="Detail Disposisi" ><i class="fa fa-eye"></i></a>
                                   </td>
                                   <td style="text-align: center;">
                                   <div class="btn-group">
@@ -196,6 +121,7 @@
                   <th >Tanggal Surat</th>
                   <th >Perihal</th>
                   <th  style="text-align: center;">File Surat</th>
+                   <th  style="text-align: center;">Detail</th>
                   <th  style="text-align: center;">Aksi</th>
                   </tr>
                 </tfoot>
@@ -220,8 +146,27 @@
 
 
       <!---modal-->
-      <div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal fade" id="viewDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+         <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header" style="background: #0086b3; padding:15px 20px;">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h3 class="modal-title" id="myModalLabel" style="text-align: center;color: white;">Detail Disposisi</h3>
+         </div>
+            <div class="modal-body" id="isidetail">
+            
+            </div>
+             <div class="modal-footer">
+                <div class="btn-group">
+              
+                   <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">OK</button>
+ 
+                </div>
+             </div>
+          </div>
+        </div>
       </div>
+
 
 
       <!---modal Sukses-->
@@ -230,16 +175,6 @@
           <div class="modal-content">
             <div class="modal-body">
               <h4 class="modal-title" id="myModalLabel">Data Berhasil Disimpan</h4>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!---modal Hapus-->
-      <div class="modal modal-danger" id="ModalHapus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-body">
-              <h4 class="modal-title" id="myModalLabel">Data Berhasil Dihaus</h4>
             </div>
           </div>
         </div>
@@ -294,6 +229,22 @@ include("proses/CRUDdisposisi.php");
       $('#tabelSurat').css('display','block');     
       
       }
+ function detail(id){
+    $.ajax({
+      url:"modal/isiDetailDisposisi.php",
+      type:"GET",
+      data: {no_urut:id},
+        success: function(data){
+           
+           $('#isidetail').html(data);
+           $('#viewDetail').modal();
+
+        }
+    });
+
+   
+
+  }
 
 
   

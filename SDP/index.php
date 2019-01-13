@@ -45,7 +45,7 @@
           <div class="box box-success">
               <div class="box-header">
                 <br><br>
-                <h3 id="title-edit" class="box-title">Selamat datang di sistem informasi E-office, anda login dengan hak akses <?php echo $_SESSION['hak_akses'];  ?></h3>
+                <h3 id="title-edit" class="box-title">Selamat datang di sistem informasi E-office, anda login dengan hak akses Bagian</h3>
                 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
               </div>
           </div>

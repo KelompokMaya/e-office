@@ -149,7 +149,8 @@
                   <th style="width: 14%">Tanggal Surat</th>
                   <th style="width: 8%" >Perihal</th>
                   <th  style="text-align: center;width: 11%">File Surat</th>
-                  <th  style="text-align: center;width: 13%">Aksi</th>
+                  <th  style="text-align: center;width: 10%">Detail</th>
+                  <th  style="text-align: center;width: 10%">Aksi</th>
                 </tr>
                 </thead>
                 <tbody >
@@ -157,11 +158,10 @@
               <!-- Proses mencari data ke database -->
               <?php
                                 
-                $sql = mysqli_query($koneksi, "SELECT * FROM tb_disposisi d,tb_suratmasuk sm WHERE d.Nomor_surat_masuk=sm.Nomor_surat_masuk AND d.Status_disposisi='terima kepala dinas' or d.Nomor_surat_masuk=sm.Nomor_surat_masuk AND d.Status_disposisi='terima bidang'");
+                $sql = mysqli_query($koneksi, "SELECT * FROM tb_disposisi d,tb_suratmasuk sm WHERE d.Nomor_surat_masuk=sm.Nomor_surat_masuk ORDER BY No_urut_kadis DESC ");
                  $no = 1;
                   while($row = mysqli_fetch_assoc($sql)){
-
-              ?>                
+                  if ($row['Status_disposisi']!='belum terkirim' && $row['Status_disposisi']!='terkirim sekretaris' && $row['Status_disposisi']!='terkirim Kepala dinas') { ?>              
                               <tr>
                                   <td ><?php echo $no?></td>
                                   <td ><?php echo $row['Nomor_surat_masuk'];?></td>
@@ -171,19 +171,25 @@
                                   <td style="text-align: center;" >
                                     <a target="_blank" href="../File/<?php echo $row['File_surat'];?>" class="btn btn-warning btn-flat" data-toggle="tooltip" title="File Surat"   ><i class="fa fa-file-pdf-o"></i></a>
                                   </td>
+                                   <td style="text-align: center;" >
+                                    <a onclick="detail(<?php echo  $row['No_urut_disposisi'];?>)"  class="btn  btn-info btn-flat" data-toggle="tooltip" title="Detail Disposisi" ><i class="fa fa-eye"></i></a>
+                                  </td>
                                   <td style="text-align: center;">
                                   <div class="btn-group">
                                     <?php if ($row['Status_disposisi']=='terima bidang') { 
-                                    echo '<span style="font-size: 14px" class="label label-info ">Selesai</span>';
+                                    echo '<span style="font-size: 14px" class="label label-success ">Selesai</span>';
                                     }
-                                    else { ?>
-                                     <a href="surat-masuk.php?kirim&&id=<?php echo $row['No_urut_disposisi'];?>"  class="btn btn-success btn-flat" data-toggle="tooltip" title="Kirim Disposisi ke Sub Bagian Umum" ><i class="fa fa-paper-plane"></i></a>
+                                    elseif ($row['Status_disposisi']=='terima kepala dinas') { ?>
+                                     <a href="surat-masuk.php?kirim&&id=<?php echo $row['No_urut_disposisi'];?>"  class="btn btn-success btn-flat" data-toggle="tooltip" title="Kirim Disposisi ke bidang" ><i class="fa fa-paper-plane"></i></a>
                                     <a href="surat-masuk.php?edit&&id=<?php echo $row['No_urut_disposisi'];?>" class="btn btn-primary btn-flat" data-toggle="tooltip" title="Edit Disposisi"  ><i class="fa fa-book"></i></a>
-                                     <?php } ?>
+                                     <?php } else { 
+                                    echo '<span style="font-size: 14px" class="label label-info ">Proses</span>';
+                                    }  ?>
                                   </div>
                                 </td>
                             </tr>
-              <?php
+                <?php
+                  }
                  $no++;       
                 }
               ?>
@@ -197,7 +203,8 @@
                   <th >Tanggal Surat</th>
                   <th >Perihal</th>
                   <th  style="text-align: center;">File Surat</th>
-                  <th  style="text-align: center;">Aksi</th>
+                  <th  style="text-align: center;">Detail</th>
+                   <th  style="text-align: center;">Aksi</th>
                   </tr>
                 </tfoot>
                 
@@ -221,9 +228,26 @@
 
 
       <!---modal-->
-      <div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal fade" id="viewDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+         <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header" style="background: #0086b3; padding:15px 20px;">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h3 class="modal-title" id="myModalLabel" style="text-align: center;color: white;">Detail Disposisi</h3>
+         </div>
+            <div class="modal-body" id="isidetail">
+            
+            </div>
+             <div class="modal-footer">
+                <div class="btn-group">
+              
+                   <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">OK</button>
+ 
+                </div>
+             </div>
+          </div>
+        </div>
       </div>
-
 
       <!---modal Sukses-->
       <div class="modal modal-success" id="ModalSukses" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -235,16 +259,7 @@
           </div>
         </div>
       </div>
-      <!---modal Hapus-->
-      <div class="modal modal-danger" id="ModalHapus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-body">
-              <h4 class="modal-title" id="myModalLabel">Data Berhasil Dihaus</h4>
-            </div>
-          </div>
-        </div>
-      </div>
+      
       <!---modal Gagal-->
       <div class="modal modal-danger" id="ModalGagal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
@@ -295,6 +310,23 @@ include("proses/CRUDdisposisi.php");
       $('#tabelSurat').css('display','block');     
       
       }
+
+   function detail(id){
+    $.ajax({
+      url:"modal/isiDetailDisposisi.php",
+      type:"GET",
+      data: {no_urut:id},
+        success: function(data){
+           
+           $('#isidetail').html(data);
+           $('#viewDetail').modal();
+
+        }
+    });
+
+   
+
+  }
 
 
   

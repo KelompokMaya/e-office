@@ -7,7 +7,8 @@
           {
             $Nomor_surat_masuk     = $_POST['Nomor_surat'];
             $Asal_surat            = $_POST['Asal_surat'];
-            $Tanggal_terima        = $_POST['Tanggal_terima'];
+            date_default_timezone_set('Asia/Kuala_Lumpur');
+            $Tanggal_terima        = date("Y-m-d H:i:s");
             $Tanggal_surat         = $_POST['Tanggal_surat'];
             $Jenis_surat           = $_POST['Jenis_surat'];
             $Sifat_surat           = $_POST['Sifat_surat'];
@@ -63,8 +64,7 @@
             {
               echo '<script >
                             $("#ModalDuplikat").modal();
-                              setTimeout(function () {
-                              window.location.href = "surat-masuk.php";  }, 100);
+                              
                           
                           </script>';
             }
@@ -72,45 +72,6 @@
            
           }
 
-  // Proses tampil modal hapus data 
-  if(isset($_GET["hapus"]))
-    {
-            echo '<script >
-            $(window).load(function() { 
-              $("#ModalHapusSurat").modal(); 
-              
-         })
-            </script>'; 
-  include("modal/hapusSurat.php");  
- 
- 
-           
-    }
-
-   // Proses hapus data      
-  if(isset($_POST['hapus']))
-    {
-            $Nomor_surat_masuk     = $_POST['Nomor_surat_masuk'];
-  
-            $delete = mysqli_query($koneksi, "DELETE FROM tb_suratmasuk WHERE Nomor_surat_masuk='$Nomor_surat_masuk'");
-            if($delete){
-
-                     echo '<script >
-                          $("#ModalHapus").modal();
-                            setTimeout(function () {
-                            window.location.href = "surat-masuk.php";  }, 100);
-                        
-                        </script>';
-
-          }else{
-                     echo '<script >
-                          $("#ModalGagal").modal();
-                            setTimeout(function () {
-                            window.location.href = "surat-masuk.php";  }, 100);
-                        
-                        </script>';
-          }
-    }
 
   // Proses tampil form edit data 
   if(isset($_GET["edit"]))
@@ -129,13 +90,11 @@
             $currSM                = $_POST['currSM'];
             $Nomor_surat_masuk     = $_POST['edit-Nomor_surat'];
             $Asal_surat            = $_POST['edit-Asal_surat'];
-            $Tanggal_terima        = $_POST['edit-Tanggal_terima'];
+            // $Tanggal_terima        = $_POST['edit-Tanggal_terima'];
             $Tanggal_surat         = $_POST['edit-Tanggal_surat'];
             $Jenis_surat           = $_POST['edit-Jenis_surat'];
             $Perihal               = $_POST['edit-Perihal'];
             $Sifat_surat           = $_POST['edit-Sifat_surat'];
-
-            
 
             if (!empty($_FILES['edit-file_Surat']['name'])) {
                 $File       = $_FILES['edit-file_Surat']['name'];
@@ -143,11 +102,9 @@
                 $file_Surat = date('YmdH_').$File;
                 $path = "../File/".$file_Surat;
 
-           
-
 
                 if(move_uploaded_file($tmp, $path)){
-                    $update = mysqli_query($koneksi, "UPDATE tb_suratmasuk set Nomor_surat_masuk='$Nomor_surat_masuk', Asal_surat='$Asal_surat', Tanggal_input='$Tanggal_terima',Tanggal_surat='$Tanggal_surat', Id_jenis_surat='$Jenis_surat',Sifat_surat='$Sifat_surat', Perihal='$Perihal', File_surat='$file_Surat' WHERE Nomor_surat_masuk='$currSM'") or die(mysqli_error($koneksi));
+                    $update = mysqli_query($koneksi, "UPDATE tb_suratmasuk set Nomor_surat_masuk='$Nomor_surat_masuk', Asal_surat='$Asal_surat', Tanggal_surat='$Tanggal_surat', Id_jenis_surat='$Jenis_surat',Sifat_surat='$Sifat_surat', Perihal='$Perihal', File_surat='$file_Surat' WHERE Nomor_surat_masuk='$currSM'") or die(mysqli_error($koneksi));
                       if($update)
                         { 
                            echo '<script >
@@ -177,9 +134,9 @@
                                   </script>';
                 }
               
-            } else {
+            } else {  
 
-               $update = mysqli_query($koneksi, "UPDATE tb_suratmasuk set Nomor_surat_masuk='$Nomor_surat_masuk', Asal_surat='$Asal_surat', Tanggal_input='$Tanggal_terima',Tanggal_surat='$Tanggal_surat',Id_jenis_surat='$Jenis_surat', Sifat_surat='$Sifat_surat', Perihal='$Perihal' WHERE Nomor_surat_masuk='$currSM'") or die(mysqli_error($koneksi));
+               $update = mysqli_query($koneksi, "UPDATE tb_suratmasuk set Nomor_surat_masuk='$Nomor_surat_masuk', Asal_surat='$Asal_surat', Tanggal_input='$Tanggal_terima',Tanggal_surat='$Tanggal_surat', Sifat_surat='$Sifat_surat', Perihal='$Perihal',Id_jenis_surat='$Jenis_surat' WHERE Nomor_surat_masuk='$currSM'") or die(mysqli_error($koneksi));
                       if($update)
                         { 
                            echo '<script >
@@ -230,12 +187,19 @@
             // $disposisi_isi                   = $_POST['disposisi-isi'];
             $disposisi_status                = 'belum terkirim';
 
+            //mencari no urut terbesar
+            $cek_no_urut=mysqli_query($koneksi, "SELECT max(No) as num FROM tb_disposisi")or die (mysqli_error($koneksi));
+            $row = mysqli_fetch_assoc($cek_no_urut);
+            $no_urut= $row['num']+1;
+            
+            
+
             $cek = mysqli_query($koneksi, "SELECT * FROM tb_disposisi WHERE No_urut_disposisi='$disposisi_NU'")or die (mysqli_error($koneksi));
 
             if(mysqli_num_rows($cek) == 0)
               {
 
-            $insert = mysqli_query($koneksi, "INSERT INTO tb_disposisi(No_urut_disposisi,Kode_surat,Nomor_surat_masuk,Perihal,Tanggal_surat,Asal_surat,Status_disposisi) VALUES('$disposisi_NU','$disposisi_kode','$disposisi_Nomor_surat_masuk','$disposisi_Perihal','$disposisi_Tanggal_surat','$disposisi_Asal_surat','$disposisi_status')") or die(mysqli_error($koneksi));
+            $insert = mysqli_query($koneksi, "INSERT INTO tb_disposisi(No_urut_disposisi,No,Kode_surat,Nomor_surat_masuk,Perihal,Tanggal_surat,Asal_surat,Status_disposisi) VALUES('$disposisi_NU','$no_urut','$disposisi_kode','$disposisi_Nomor_surat_masuk','$disposisi_Perihal','$disposisi_Tanggal_surat','$disposisi_Asal_surat','$disposisi_status')") or die(mysqli_error($koneksi));
                       if($insert)
                         { 
                            echo '<script >

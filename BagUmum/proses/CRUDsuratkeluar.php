@@ -14,7 +14,11 @@
   //Proses tambah data ke data base 
   if(isset($_POST['addSuratKeluar']))
           {
-            $Nomor_surat_keluar     = $_POST['Nomor_surat'];
+            $Kode_surat             = $_POST['Kode_surat'];
+            $Nomor_surat            = $_POST['Nomor_surat'];
+            $Kode_bidang            = $_POST['Kode_bidang'];
+            $nama_instansi          = $_POST['nama_instansi'];
+            $Nomor_surat_keluar     = $Kode_surat.'/'.$Nomor_surat.'/'.$Kode_bidang.'/'.$nama_instansi;
             $Tanggal_surat          = $_POST['Tanggal_surat'];
             $Asal_surat             = '-';
             $Sifat_surat            = $_POST['Sifat_surat'];
@@ -41,12 +45,16 @@
               $Ditugaskan_kepada= '-';
               $Asal_surat             = $_POST['Asal_surat'];
             }
+            //  //mencari no urut terbesar
+            // $cek_no_urut=mysqli_query($koneksi, "SELECT max(No_urut_surat) as num FROM tb_suratkeluar")or die (mysqli_error($koneksi));
+            // $row = mysqli_fetch_assoc($cek_no_urut);
+            // $no_urut= $row['num']+1;
              
             $cek = mysqli_query($koneksi, "SELECT * FROM tb_suratkeluar WHERE Nomor_surat_keluar='$Nomor_surat_keluar'")or die (mysqli_error($koneksi));
 
           if(mysqli_num_rows($cek) == 0)
             {
-                $insert = mysqli_query($koneksi, "INSERT INTO tb_suratkeluar(Nomor_surat_keluar,Ditugaskan_kepada,Tujuan_surat,Tanggal_surat,Perihal,Asal_surat,Dasar_surat,Sifat_surat,Isi_surat,Id_jenis_surat) VALUES('$Nomor_surat_keluar','$Ditugaskan_kepada','$Tujuan_surat','$Tanggal_surat','$Perihal','$Asal_surat','$Dasar_surat','$Sifat_surat','$Isi_surat','$Jenis_surat')") or die(mysqli_error($koneksi));
+                $insert = mysqli_query($koneksi, "INSERT INTO tb_suratkeluar(Nomor_surat_keluar,Ditugaskan_kepada,Tujuan_surat,Tanggal_surat,Perihal,Asal_surat,Dasar_surat,Sifat_surat,Isi_surat,Id_jenis_surat,No_urut_surat) VALUES('$Nomor_surat_keluar','$Ditugaskan_kepada','$Tujuan_surat','$Tanggal_surat','$Perihal','$Asal_surat','$Dasar_surat','$Sifat_surat','$Isi_surat','$Jenis_surat','$Nomor_surat')") or die(mysqli_error($koneksi));
                   if($insert)
                   { 
                      echo '<script >
@@ -81,43 +89,6 @@
            
           }
 
-  // Proses tampil modal hapus data 
-  if(isset($_GET["hapus"]))
-    {
-            echo '<script >
-            $(window).load(function() { $("#ModalHapusSurat").modal(); })
-            </script>'; 
-  include("modal/hapusSuratkeluar.php");  
- 
- 
-           
-    }
-
-
-   // Proses hapus data      
-  if(isset($_POST['hapus']))
-    {
-            $Nomor_surat_keluar     = $_POST['Nomor_surat_keluar'];
-  
-            $delete = mysqli_query($koneksi, "DELETE FROM tb_suratkeluar WHERE Nomor_surat_keluar='$Nomor_surat_keluar'");
-            if($delete){
-
-                     echo '<script >
-                          $("#ModalHapus").modal();
-                            setTimeout(function () {
-                            window.location.href = "surat-keluar.php";  }, 100);
-                        
-                        </script>';
-
-          }else{
-                     echo '<script >
-                          $("#ModalGagal").modal();
-                            setTimeout(function () {
-                            window.location.href = "surat-keluar.php";  }, 100);
-                        
-                        </script>';
-          }
-    }
 
   // Proses tampil form edit data 
   if(isset($_GET["edit"]))

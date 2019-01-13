@@ -18,8 +18,32 @@ $data = mysqli_fetch_array($sql); // Ambil semua data dari hasil eksekusi $sql
 $tanggal = $data['Tanggal_surat'];  
 $format1 = date('d F Y', strtotime($tanggal ));
 ?>
-
-<div style="margin-top:100px; text-align: center ; font-size: 20px;text-decoration: underline;">SURAT PERINTAH TUGAS</div>
+<table  style="width:100%">
+          <tr>
+            <th width="40%" rowspan="7"><img src="logo.jpg"  style="margin-left:50px;margin-top:30px ;margin-bottom:20px ; width:120px;height:120px;"></th>
+            <td width="60%"><div style="margin-top:20px ;margin-left: -300px ;margin-bottom: -10px ; text-align: center ; font-size: 18px;">PEMERINTAH PROVINSI BALI</div></td>
+          </tr>
+          <tr>
+            <td width="60%"><div style=" font-size: 26px;margin-left: -300px ;margin-top: -10px ; text-align: center ;">DINAS PARIWISATA BALI</div></td>
+          </tr>
+          <tr>
+            <td width="60%"><div style=" font-size: 18px;margin-left: -300px ;margin-top: -6px ;text-align: center ;">BALI GOVERNMENT TOURISM OFFICE</div></td>
+          </tr>
+          <tr>
+            <td width="60%"><div style=" font-size: 14px;margin-left: -300px ;margin-top: -6px ; text-align: center ;text-decoration: underline;">http://www.tourism.baliprov.go.id</div></td>
+          </tr>
+           <tr>
+            <td width="60%"><div style=" font-size: 14px;margin-left: -300px ;margin-top: -6px ; text-align: center ;">e-mail: infotourism@baliprov.go.id</div></td>
+          </tr>
+           <tr>
+            <td width="60%"><div style=" font-size: 14px;margin-left: -300px ;margin-top: -6px ; text-align: center ;">Jalan S.Parman Niti Mandala Renon, Telp.(0361) 222387, Fax(0361) 226313</div></td>
+          </tr>
+           <tr>
+            <td width="60%"><div style=" font-size: 13px;margin-left: -300px ;margin-top: -6px ; text-align: center ;">Denpasar-Bali 80235</div></td>
+          </tr>
+    </table>
+    <div style=" margin-top: -6px ;margin-left: 50px ;margin-right: 50px ;height: 50px"><hr></div>
+<div style="margin-top:-10px; text-align: center ; font-size: 20px;text-decoration: underline;">SURAT PERINTAH TUGAS</div>
 <div style="margin-bottom: -10px ; text-align: center ; font-size: 18px;">Nomor : <?php echo $data['Nomor_surat_keluar'];  ?></div>
 
 <br> 

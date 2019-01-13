@@ -62,13 +62,25 @@
                            <input id='disposisi-Perihal' class='form-control' name='disposisi-Perihal' type='text' value="<?php echo $row['Perihal']; ?>" readonly/>
                          </div>
                   </div>
-                 
+                  <div class="col-xs-12 form-group">
+                    <?php
+                        $id_disposisi = $_GET['id'];
+                        $sql = mysqli_query($koneksi,"SELECT * FROM tb_suratmasuk where No_urut_surat='$id_disposisi'");
+                        $row2 =  mysqli_fetch_array($sql);
+                    ?>
+                       <label class="col-sm-3 control-label" style="text-align:right;">File Surat</label>
+                       <div class="col-sm-7 control-label" style="text-align:left;">
+                          <a target="_blank" href="../File/<?php echo $row2['File_surat']; ?>" class="btn btn-sm btn-warning btn-flat" data-toggle="tooltip" title="File Surat"   ><i class="fa fa-file-pdf-o"></i></a>
+                       </div>
+                  </div>
+
                  <div class="col-xs-12 form-group">
                        <label class="col-sm-3 control-label" style="text-align:right;">Catatan</label>
                        <div class="col-sm-7 control-label" style="text-align:left;">
                           <input id='disposisi-Catatan' class='form-control' name='disposisi-Catatan' type='text' value="<?php echo $row['Catatan']; ?>"  /> 
                        </div>
                   </div>
+                 
                   
                   <div class="col-xs-12 form-group" >
                     <label class="col-sm-3 control-label"></label>

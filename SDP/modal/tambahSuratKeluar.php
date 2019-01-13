@@ -21,10 +21,27 @@
                      </div>
                   </div>
                
+                 <?php //mencari no urut terbesar
+            $cek_no_urut=mysqli_query($koneksi, "SELECT max(No_urut_surat) as num FROM tb_suratkeluar")or die (mysqli_error($koneksi));
+            $row = mysqli_fetch_assoc($cek_no_urut);
+            $no_urut= $row['num']+1;
+            if ($no_urut<10) {
+              $no_urut='0'.$no_urut;
+            }
+            ?>
                   <div class="col-xs-12 form-group">
                         <label class="col-sm-3 control-label" style="text-align:right;">Nomor Surat Keluar</label>
-                         <div class="col-sm-7 control-label" style="text-align:left;">
-                           <input id='Nomor_surat' class='form-control' name='Nomor_surat' type='text' required/>
+                         <div class="col-sm-2 control-label" style="text-align:left;">
+                           <input id='Nomor_surat' class='form-control' name='Kode_surat' type='text' required/>
+                         </div>
+                         <div class="col-sm-1 control-label" style="text-align:left;">
+                           <input id='Nomor_surat2' class='form-control' name='Nomor_surat' type='text' value="<?php echo $no_urut; ?>" readonly />
+                         </div>
+                         <div class="col-sm-2 control-label" style="text-align:left;">
+                           <input id='Nomor_surat3' class='form-control' name='Kode_bidang' type='text' required/>
+                         </div>
+                         <div class="col-sm-2 control-label" style="text-align:left;">
+                           <input id='Nomor_surat4' class='form-control' name='nama_instansi' type='text' required/>
                          </div>
                   </div>
                   <?php if ($_POST['Jenis_surat']!='sk2') { ?>

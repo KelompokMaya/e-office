@@ -89,7 +89,7 @@ if ($_SESSION['hak_akses']!='SDP') {
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <i class="fa fa-user "></i>
                     <span class="hidden-xs">
-              <?php echo $_SESSION['hak_akses'];  ?></span> 
+              Bagian</span> 
 
             </a>
 

@@ -166,8 +166,8 @@
                     <label > Surat </label>
                     <div class="control-label" style="text-align:left;">
                         <select name="Surat" id="Surat" class="form-control"  >
-                              <option value="Surat Masuk" > surat masuk</option>
-                              <option value="Surat Keluar" > surat keluar</option>
+                              <option value="surat masuk" > surat masuk</option>
+                              <option value="surat keluar" > surat keluar</option>
                               
                           </select>                                     
                      </div>

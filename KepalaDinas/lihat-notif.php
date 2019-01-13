@@ -7,27 +7,13 @@
                     <i class="fa  fa-home"></i> <span>Home</span>
                   </a>
                 </li>
-                <li class=" treeview">
-                  <a href="data-pengguna.php">
-                    <i class="fa  fa-user"></i> <span>Data Pengguna</span>
-                    
-                  </a>
-                </li>
+               
                 <li class=" treeview">
                   <a href="surat-masuk.php">
                     <i class="fa fa-download"></i> <span>Surat Masuk</span>
                   </a>
                 </li>   
-                <li class=" treeview">
-                  <a href="disposisi.php">
-                    <i class="fa fa-folder"></i> <span>Disposisi</span>
-                  </a>
-                </li>
-                <li class=" treeview">
-                  <a href="surat-keluar.php">
-                    <i class="fa fa-upload"></i> <span>Surat Keluar</span>
-                  </a>
-                </li>    
+                  
                
               </ul>
     </section>
@@ -82,7 +68,7 @@
                         <?php echo $row['judul'];?> 
                       </div>
                       <div class="timeline-footer">
-                        <a class="btn btn-primary btn-xs">Lihat</a>
+                         <a href="surat-masuk.php?edit&&id=<?php echo $row['id_disposisi'];?>" class="btn btn-primary btn-xs">Lihat</a>
                       </div>
                     </div>
                   </li>

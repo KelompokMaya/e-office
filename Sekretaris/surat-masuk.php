@@ -149,7 +149,8 @@
                   <th style="width: 14%">Tanggal Surat</th>
                   <th style="width: 8%" >Perihal</th>
                   <th  style="text-align: center;width: 11%">File Surat</th>
-                  <th  style="text-align: center;width: 13%">Aksi</th>
+                  <th  style="text-align: center;width: 10%">Detail</th>
+                  <th  style="text-align: center;width: 10%">Aksi</th>
                 </tr>
                 </thead>
                 <tbody >
@@ -157,12 +158,11 @@
               <!-- Proses mencari data ke database -->
               <?php
                                 
-                $sql = mysqli_query($koneksi, "SELECT * FROM tb_disposisi d,tb_suratmasuk sm WHERE d.Nomor_surat_masuk=sm.Nomor_surat_masuk AND d.Status_disposisi='terima sekretaris' or d.Nomor_surat_masuk=sm.Nomor_surat_masuk AND d.Status_disposisi='terima bidang'");
+                $sql = mysqli_query($koneksi, "SELECT * FROM tb_disposisi d,tb_suratmasuk sm WHERE d.Nomor_surat_masuk=sm.Nomor_surat_masuk ORDER BY No_urut_sekretaris DESC ");
                  $no = 1;
                   while($row = mysqli_fetch_assoc($sql)){
-
-              ?>                
-                              <tr>
+                    if ($row['Status_disposisi']!='belum terkirim' && $row['Status_disposisi']!='terkirim sekretaris') { ?>
+                       <tr>
                                   <td ><?php echo $no?></td>
                                   <td ><?php echo $row['Nomor_surat_masuk'];?></td>
                                   <td ><?php echo $row['Asal_surat'];?></td>
@@ -171,7 +171,11 @@
                                   <td style="text-align: center;" >
                                     <a target="_blank" href="../File/<?php echo $row['File_surat'];?>" class="btn btn-warning btn-flat" data-toggle="tooltip" title="File Surat"   ><i class="fa fa-file-pdf-o"></i></a>
                                   </td>
+                                  <td style="text-align: center;" >
+                                    <a onclick="detail(<?php echo  $row['No_urut_disposisi'];?>)"  class="btn  btn-info btn-flat" data-toggle="tooltip" title="Detail Disposisi" ><i class="fa fa-eye"></i></a>
+                                  </td>
                                   <td style="text-align: center;">
+
                                   <div class="btn-group">
 
                                   <?php if ($row['Status_disposisi']=='terima sekretaris') { ?>
@@ -179,12 +183,16 @@
                                     <a href="surat-masuk.php?edit&&id=<?php echo $row['Nomor_surat_masuk'];?>" class="btn btn-primary btn-flat" data-toggle="tooltip" title="Tambah Catatan Disposisi"  ><i class="fa fa-book"></i></a>
                                     <?php
                                     } elseif ($row['Status_disposisi']=='terima bidang') { 
-                                    echo '<span style="font-size: 14px" class="label label-info ">Selesai</span>';
+                                    echo '<span style="font-size: 14px" class="label label-success ">Selesai</span>';
+                                    }  else { 
+                                    echo '<span style="font-size: 14px" class="label label-info ">Proses</span>';
                                     }  ?>
                                   </div>
                                 </td>
                             </tr>
-              <?php
+                 <?php   }
+
+             
                  $no++;       
                 }
               ?>
@@ -198,6 +206,7 @@
                   <th >Tanggal Surat</th>
                   <th >Perihal</th>
                   <th  style="text-align: center;">File Surat</th>
+                   <th  style="text-align: center;">Detail</th>
                   <th  style="text-align: center;">Aksi</th>
                   </tr>
                 </tfoot>
@@ -221,8 +230,26 @@
   </div>
 
 
-      <!---modal-->
-      <div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+     <!---modal-->
+      <div class="modal fade" id="viewDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+         <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header" style="background: #0086b3; padding:15px 20px;">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h3 class="modal-title" id="myModalLabel" style="text-align: center;color: white;">Detail Disposisi</h3>
+         </div>
+            <div class="modal-body" id="isidetail">
+            
+            </div>
+             <div class="modal-footer">
+                <div class="btn-group">
+              
+                   <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">OK</button>
+ 
+                </div>
+             </div>
+          </div>
+        </div>
       </div>
 
 
@@ -232,16 +259,6 @@
           <div class="modal-content">
             <div class="modal-body">
               <h4 class="modal-title" id="myModalLabel">Data Berhasil Disimpan</h4>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!---modal Hapus-->
-      <div class="modal modal-danger" id="ModalHapus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-body">
-              <h4 class="modal-title" id="myModalLabel">Data Berhasil Dihaus</h4>
             </div>
           </div>
         </div>
@@ -297,7 +314,22 @@ include("proses/CRUDdisposisi.php");
       
       }
 
+  function detail(id){
+    $.ajax({
+      url:"modal/isiDetailDisposisi.php",
+      type:"GET",
+      data: {no_urut:id},
+        success: function(data){
+           
+           $('#isidetail').html(data);
+           $('#viewDetail').modal();
 
+        }
+    });
+
+   
+
+  }
   
 
 </script>

@@ -102,7 +102,7 @@
               <!-- Proses mencari data ke database -->
               <?php
                                 
-                $sql = mysqli_query($koneksi, "SELECT * FROM tb_suratkeluar a,tb_jenis_surat b WHERE a.Id_jenis_surat=b.Id_jenis_surat  ");
+                $sql = mysqli_query($koneksi, "SELECT * FROM tb_suratkeluar a,tb_jenis_surat b WHERE a.Id_jenis_surat=b.Id_jenis_surat ORDER BY No_urut_surat DESC;");
                  $no = 1;
                   while($row = mysqli_fetch_assoc($sql)){
 
@@ -126,7 +126,6 @@
                                      <a href="../Print/printNotaDinas.php?id=<?php echo $row['Nomor_surat_keluar'];?>" class="btn btn-sm btn-primary btn-flat" data-toggle="tooltip" title="Cetak Surat"  ><i class="fa fa-print"></i></a>
                                      <?php } ?>
                                     <a href="surat-keluar.php?edit=<?php echo $row['Id_jenis_surat'];?>&&id=<?php echo $row['Nomor_surat_keluar'];?>" class="btn btn-sm btn-info btn-flat" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil"></i></a>
-                                    <a href="surat-keluar.php?hapus&&id=<?php echo $row['Nomor_surat_keluar'];?>"  class="btn btn-sm btn-danger btn-flat" data-toggle="tooltip" title="Delete" ><i class="fa fa-trash"></i></a>
                                   </div>
                                 </td>
                             </tr>
@@ -173,7 +172,7 @@
       <div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       </div>
 
-       <!-- form tambah data -->
+       <!-- form select -->
       <div class="modal fade" id="ModalPilih" role="dialog" >
         <div class="modal-dialog">
         
@@ -271,13 +270,6 @@ include("proses/CRUDsuratkeluar.php");
      $("#ModalPilih").modal();    
     }
     
-
-
-  function Batal() {
-      $("#addSuratMasuk").hide('slow');
-      $('#tabelSuratKeluar').css('display','block');     
-      
-      }
 
   // $(document).on('click', '#btn-cancel', function(event) {
   //       event.preventDefault();

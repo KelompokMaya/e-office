@@ -20,21 +20,38 @@
                 </a>
                 <ul class="dropdown-menu">
 
-                  <li style="text-align: center;font-size: 14px" class="header"><b><?php echo $jumlah;?> Surat Baru</b></li>
+                  <li class="header">You have 10 notifications</li>
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
                   <li>
-                    <!-- inner menu: contains the actual data -->
-                    <ul class="menu">
-                     <?php
-                      while($row = mysqli_fetch_assoc($sql)){
-                        $no++;
-                      ?>  
-                      <li>
-                        <a href="surat-masuk.php?edit&&id=<?php echo $row['id_disposisi'];?>">
-                          <i class="fa fa-user text-red"></i><b><?php echo $row['asal_hak_akses'];?></b><br> <?php echo $row['judul'];?></a>
-                      </li>
-
-                      <?php } ?>
-                    </ul>
+                    <a href="#">
+                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                    </a>
                   </li>
-                  <li class="footer"><a href="lihat-notif.php">Lihat Semua</a></li>
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
+                      page and may cause design problems
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-users text-red"></i> 5 new members joined
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-shopping-cart text-green"></i> 25 sales made
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-user text-red"></i> You changed your username
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="footer"><a href="#">View all</a></li>
+            </ul>
                 </ul>

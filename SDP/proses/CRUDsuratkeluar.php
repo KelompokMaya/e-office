@@ -14,7 +14,11 @@
   //Proses tambah data ke data base 
   if(isset($_POST['addSuratKeluar']))
           {
-            $Nomor_surat_keluar     = $_POST['Nomor_surat'];
+            $Kode_surat             = $_POST['Kode_surat'];
+            $Nomor_surat            = $_POST['Nomor_surat'];
+            $Kode_bidang            = $_POST['Kode_bidang'];
+            $nama_instansi          = $_POST['nama_instansi'];
+            $Nomor_surat_keluar     = $Kode_surat.'/'.$Nomor_surat.'/'.$Kode_bidang.'/'.$nama_instansi;
             $Tanggal_surat          = $_POST['Tanggal_surat'];
             $Asal_surat             = '-';
             $Sifat_surat            = $_POST['Sifat_surat'];
@@ -48,7 +52,7 @@
 
           if(mysqli_num_rows($cek) == 0)
             {
-                $insert = mysqli_query($koneksi, "INSERT INTO tb_suratkeluar(Nomor_surat_keluar,Ditugaskan_kepada,Tujuan_surat,Tanggal_surat,Perihal,Asal_surat,Dasar_surat,Sifat_surat,Isi_surat,Id_jenis_surat,Dibuat_oleh) VALUES('$Nomor_surat_keluar','$Ditugaskan_kepada','$Tujuan_surat','$Tanggal_surat','$Perihal','$Asal_surat','$Dasar_surat','$Sifat_surat','$Isi_surat','$Jenis_surat','$dibuat_oleh')") or die(mysqli_error($koneksi));
+                $insert = mysqli_query($koneksi, "INSERT INTO tb_suratkeluar(Nomor_surat_keluar,Ditugaskan_kepada,Tujuan_surat,Tanggal_surat,Perihal,Asal_surat,Dasar_surat,Sifat_surat,Isi_surat,Id_jenis_surat,Dibuat_oleh,No_urut_surat) VALUES('$Nomor_surat_keluar','$Ditugaskan_kepada','$Tujuan_surat','$Tanggal_surat','$Perihal','$Asal_surat','$Dasar_surat','$Sifat_surat','$Isi_surat','$Jenis_surat','$dibuat_oleh','$Nomor_surat')") or die(mysqli_error($koneksi));
                   if($insert)
                   { 
                      echo '<script >
